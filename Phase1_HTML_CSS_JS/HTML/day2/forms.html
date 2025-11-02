@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+<body>
+    <form action="/submit" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <h1>Second form</h1>
+    <form action="#">
+        <label>Gender:</label><br>
+        <input type="radio" name="gender" value="male">Male <br>
+        <input type="radio" name="gender" value="female">Female <br>
+
+        <label>Interests:</label><br>
+        <input type="checkbox" value="coding">Coding <br>
+        <input type="checkbox" value="music">Music <br>
+
+        <!--buttons can perform different actions-->
+        <button type="button">Click Me</button>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
