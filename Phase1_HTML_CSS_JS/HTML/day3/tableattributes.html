@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table attributes</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th,td{
+            border: 1px solid black;
+            padding: 6px;
+            text-align: center;
+        }
+        th{
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <caption>Student Marks</caption>
+        <tr >
+            <th rowspan="2">Name</th>
+            <th colspan="2">Marks</th>
+        </tr>
+        <tr>
+            <th>Math</th>
+            <th>Science</th>
+        </tr>
+        <tr>
+            <td>Sudheer</td>
+            <td>85</td>
+            <td>90</td>
+        </tr>
+    </table>
+</body>
+</html>
