@@ -1,0 +1,30 @@
+/* Tag Selectors*/
+
+h1{
+    color: white;
+}
+
+p{
+    color: rgb(74, 164, 244);
+}
+
+/* Class Selectors */
+.class-selector{
+    font-size: 45px;
+}
+
+/* ID Selectors */
+#id-selector{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: 600;
+}
+/* Universal Selectors */
+*{
+    background-color: rgb(107, 105, 105);
+}
+
+/* group Selectors */
+h1, h2, p, #id-selector{
+    text-align: center;
+}
