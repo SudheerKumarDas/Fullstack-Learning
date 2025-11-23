@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box-sizing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="box1">
+        IMPORTANT: box-sizing (MUST USE ALWAYS) <br>
+Default CSS behavior is stupid. <br>
+If you do this: <br>
+width: 200px; <br>
+padding: 20px; <br>
+Your actual width becomes 240px (padding adds to width). <br>
+    </div>
+
+<div class="box2">
+    To fix this: <br>
+    * <br> { <br>
+    box-sizing: border-box; <br>
+    } <br>
+    Now padding/border stay inside the width. <br>
+    Every professional developer uses this. <br>
+    </div>
+</body>
+</html>

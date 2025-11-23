@@ -1,0 +1,34 @@
+.box{
+    background: lightblue;
+    padding: 20px;
+    border: 5px solid navy;
+    border-radius: 10px;
+    margin: 30px;
+    width: 200px;
+    text-align: center;
+}
+
+/* 
+What happens?
+
+padding: 20px makes the box expand INSIDE
+
+border: 5px creates outline
+
+margin: 30px pushes it away from other elements
+
+width: 200px is just the content width
+
+   Padding vs Margin (Don't confuse)
+Padding = inside spacing
+Example:
+Add space between text and the box edges.
+
+Margin = outside spacing
+Example:
+Space between this box and other boxes.
+
+If two boxes are touching → increase margin
+If your text looks cramped → increase padding
+
+*/
