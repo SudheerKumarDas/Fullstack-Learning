@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-bar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #513636;
+    color: white;
+    padding: 10px;
+}
+
+.nav-list{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    list-style: none;
+    gap: 50px;
+}
+
+ul li {
+    font-size: 20px;
+}
