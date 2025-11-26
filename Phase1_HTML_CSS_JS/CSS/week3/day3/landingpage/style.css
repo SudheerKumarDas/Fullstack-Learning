@@ -8,6 +8,13 @@
 body{
     background-color: #f5f7fa;
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
 }
 
 /* NAVBAR */
@@ -32,6 +39,7 @@ body{
 }
 
 /*Hero section*/
+
 
 .hero{
     padding: 50px 40px;
@@ -74,4 +82,62 @@ body{
     width: 400px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0,0, 0.1);
+}
+
+/*Features Section*/
+
+.features{
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 40px;
+}
+
+.feature-card{
+    flex: 1;
+    padding: 25px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0,0, 0.05);
+}
+
+.feature-card h2{
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.feature-card p{
+    color: #666;
+}
+
+/* Footer */
+
+.footer{
+    text-align: center;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    margin-top: 40px;
+}
+
+/* Responsive */
+@media(max-width: 800px){
+    .hero{
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-text{
+        padding: 0;
+    }
+
+    .hero-img img{
+        width: 250px;
+        margin-top: 20px;
+    }
+
+    .features{
+        flex-direction: column;
+    }
 }
