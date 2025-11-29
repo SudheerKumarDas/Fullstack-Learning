@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.card{
+    display: 1 1 200px;
+    background-color: #cfff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    text-align: center;
+}
