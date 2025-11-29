@@ -1,0 +1,20 @@
+/* horizontal centering
+.container{
+    display: flex;
+    justify-content: center;
+} */
+
+/* vertical centering 
+.container{
+    display: flex;
+    align-items: center;
+    height: 100px;
+    border: 1px solid black;
+}
+*/
+
+/* space around */
+.container{
+    display: flex;
+    justify-content: space-around;
+}
