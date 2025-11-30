@@ -1,0 +1,60 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 40px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background:#f3f4f6
+}
+
+button{
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    background: #007bff;
+    font-size: 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    background: #0419d6;
+}
+
+h1{
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.pricing-container{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.card{
+    border: 1px solid #ddd;
+    padding: 30px;
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: o 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.card h2{
+    margin-bottom: 10px;
+    color: #007bff;
+}
