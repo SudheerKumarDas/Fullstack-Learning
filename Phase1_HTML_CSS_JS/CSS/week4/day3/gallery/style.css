@@ -1,0 +1,17 @@
+.gallery{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.box{
+    border: 1px solid black;
+    background: #007bff;
+    color: white;
+    height: 120px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
