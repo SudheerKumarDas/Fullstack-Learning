@@ -11,6 +11,7 @@ body{
 }
 
 button{
+    width: 100%;
     border: none;
     padding: 10px 20px;
     color: white;
@@ -54,7 +55,40 @@ h1{
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
+.card.popular {
+  border: 2px solid #007bff;
+  transform: scale(1.05);
+}
+
 .card h2{
     margin-bottom: 10px;
     color: #007bff;
+}
+
+p span {
+    font-weight: 600;
+}
+.price {
+  font-size: 28px;
+  margin: 20px 0;
+  color: #333;
+}
+
+.card ul {
+  text-align: left;
+  margin: 20px 0;
+  padding-left: 0;
+}
+
+.card ul li {
+  list-style: none;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+ul li::before {
+  content: "✓";
+  color: green;
+  font-weight: bold;
+  margin-right: 5px;
 }
