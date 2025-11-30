@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+}
+
+.container{
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px;
+    gap: 10px;
+}
+
+.item{
+    background: lightblue;
+    height: 50px;
+    width: 50px;
+    border: 1px solid blue;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
