@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive card</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card" id="card">
+        <h2 id="title">My Card</h2>
+
+        <input type="text" id="input" placeholder="Type to change title">
+
+        <div class="buttons">
+            <button class="color-btn" data-color="lightblue">Blue</button>
+            <button class="color-btn" data-color="lightgreen">Green</button>
+            <button class="color-btn" data-color="lightpink">Pink</button>
+        </div>
+
+        <p id="hoverText" class="hidden">You are hovering over the card!</p>
+
+        <button id="toggleMode">Toggle Dark Mode</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
