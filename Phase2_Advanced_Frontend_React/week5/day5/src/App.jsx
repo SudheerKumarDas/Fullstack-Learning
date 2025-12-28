@@ -2,6 +2,7 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import Tabs from './components/Tabs'
 import Todo from './components/Todo'
+import Timer from './components/Timer'
 
 function App() {
   
@@ -21,7 +22,14 @@ function App() {
   //   setInterval(increaseCount,1000);
   // },[]);
   
+  const [showTimer, setShowTimer] = useState(true);
   
+  useEffect(()=>{
+
+    const interval = setInterval(function (){ setShowTimer(x => !x);},5000)
+    
+    return () => clearInterval(interval);
+  },[]);
   
   return (
     <>
@@ -30,7 +38,9 @@ function App() {
 
       {/* <Tabs/> */}
 
-      <Todo/>
+      {/* <Todo/> */}
+
+    {showTimer && <Timer/>}
     </>
   )
 }
