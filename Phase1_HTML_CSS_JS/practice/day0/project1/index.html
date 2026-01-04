@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        nav{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-list-items{
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+        .cards{
+            display: flex;
+            justify-content: space-around;
+            margin: auto;
+            flex-wrap: wrap;
+            max-width: 900px;
+        }
+        .card{
+            display: flex;
+            height: 200px;
+            width: 200px;
+            background-color: beige;
+            justify-content: center;
+            align-items: center;
+            margin: 5px;
+            border: 1px solid #ccc;
+        }
+
+        @media(max-width:600px){
+            nav{
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Logo</div>
+        <div class="nav-list">
+            <ul class="nav-list-items">
+                <li>Home</li>
+                <li>About</li>
+                <li>Login</li>
+            </ul>
+        </div>
+    </nav>
+    <div class="cards">
+        <div class="card">Card 1</div>
+        <div class="card">Card 2</div>
+        <div class="card">Card 3</div>
+        <div class="card">Card 4</div>
+        <div class="card">Card 5</div>
+        <div class="card">Card 6</div>
+    </div>
+</body>
+</html>
