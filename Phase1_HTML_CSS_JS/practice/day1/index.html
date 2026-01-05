@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cards{
+            display: flex;
+            gap: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+        .card{
+            flex: 1;
+            max-width: 280px;
+            background-color: beige;
+            padding: 10px;
+        }
+        @media(max-width:600px){
+            .cards{
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cards">
+        <div class="card">
+            <h2>Title1</h2>
+            <p>price</p>
+            <p>feature list</p>
+            <button>btn1</button>
+        </div>
+        <div class="card">
+            <h2>Title2</h2>
+            <p>price</p>
+            <p>feature list</p>
+            <button>btn2</button>
+        </div>
+        <div class="card">
+            <h2>Title3</h2>
+            <p>price</p>
+            <p>feature list</p>
+            <button>btn3</button>
+        </div>
+    </div>
+</body>
+</html>
