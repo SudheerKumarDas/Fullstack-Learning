@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .cards-container{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .card{
+        background-color: beige;
+        padding: 10px;
+
+        flex: 1 1 calc(33.333% - 10px);
+        /* this is important */
+        
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    @media(max-width:600px){
+        .card{
+            width: 100%;
+        }
+    }
+    @media(max-width:900px){
+        .card{
+            width: 50%;
+        }
+    }
+</style>
+<body>
+    <div class="cards-container">
+        <div class="card">
+            <h2>Title 1</h2>
+            <p>Amount 1</p>
+            <p>Category badge 1</p>
+        </div>
+        
+        <div class="card">
+            <h2>Title 1</h2>
+            <p>Amount 1</p>
+            <p>Category badge 1</p>
+        </div>
+        <div class="card">
+            <h2>Title 1</h2>
+            <p>Amount 1</p>
+            <p>Category badge 1</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+*{
+    margin: 10px;
+    padding: 0;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-list{
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.project-cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.dark{
+    background: #111;
+    color: white;
+}
+
+@media(max-width:600px){
+    nav{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .nav-list{
+        flex-direction: column;
+        gap: 10px;
+    }
+}

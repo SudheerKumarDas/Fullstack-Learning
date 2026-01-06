@@ -25,8 +25,9 @@ function App() {
   const [showTimer, setShowTimer] = useState(true);
   
   useEffect(()=>{
-
-    const interval = setInterval(function (){ setShowTimer(x => !x);},5000)
+    const interval = setInterval(function (){ 
+      setShowTimer(x => !x);
+    },5000);
     
     return () => clearInterval(interval);
   },[]);
