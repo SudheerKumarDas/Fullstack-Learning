@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .cards-container{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .card{
+        background-color: beige;
+        padding: 16px;
+        flex: 1 1 calc(33.333% - 10px);
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .card button{
+        margin-top: auto;
+        padding: 8px 12px;
+    }
+
+    @media(max-width:900px){
+        .card{
+            flex: 1 1 calc(50% - 10px);
+        }
+    }
+    @media(max-width:600px){
+        .card{
+            flex: 1 1 100%;
+        }
+    }
+</style>
+<body>
+    <div class="cards-container">
+        <div class="card">
+            <h2>Plan name</h2>
+            <p>Price</p>
+            <ul>
+                <li>feature 1</li>
+                <li>feature 2</li>
+                <li>feature 3</li>
+            </ul>
+            <button>Buy</button>
+        </div>
+        <div class="card">
+            <h2>Plan name</h2>
+            <p>Price</p>
+            <ul>
+                <li>feature 1</li>
+                <li>feature 2</li>
+                <li>feature 3</li>
+            </ul>
+            <button>Buy</button>
+        </div>
+        <div class="card">
+            <h2>Plan name</h2>
+            <p>Price</p>
+            <ul>
+                <li>feature 1</li>
+                <li>feature 2</li>
+                <li>feature 3</li>
+            </ul>
+            <button>Buy</button>
+        </div>
+        <div class="card">
+            <h2>Plan name</h2>
+            <p>Price</p>
+            <ul>
+                <li>feature 1</li>
+                <li>feature 2</li>
+                <li>feature 3</li>
+            </ul>
+            <button>Buy</button>
+        </div>
+        <div class="card">
+            <h2>Plan name</h2>
+            <p>Price</p>
+            <ul>
+                <li>feature 1</li>
+                <li>feature 2</li>
+                <li>feature 3</li>
+            </ul>
+            <button>Buy</button>
+        </div>
+        <div class="card">
+            <h2>Plan name</h2>
+            <p>Price</p>
+            <ul>
+                <li>feature 1</li>
+                <li>feature 2</li>
+                <li>feature 3</li>
+            </ul>
+            <button>Buy</button>
+        </div>
+    </div>
+</body>
+</html>
