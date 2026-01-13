@@ -55,7 +55,7 @@ function findStudentById(students, id) {
     return null;
 }
 console.log(findStudentById(students, 4));
-// { id: 4, name: "Neha", marks: 45 }
+
 
 
 function greet(name) {
