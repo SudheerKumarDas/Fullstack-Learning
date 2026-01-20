@@ -1,0 +1,36 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu{
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: beige;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+}
+
+.card1{
+    background-color: blanchedalmond;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cards{
+    display: flex;
+    justify-content: space-around;
+}
