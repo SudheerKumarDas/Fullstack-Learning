@@ -3,7 +3,15 @@ const addBtn = document.querySelector("#addBtn");
 const todos_list = document.querySelector("#todos-list");
 const error = document.querySelector("#error");
 
-let todos = [];
+function loadTodos(){
+        const todosData = localStorage.getItem("todos");
+        const parsedData = JSON.parse(todosData) || [];
+        return parsedData;
+}
+
+let todos = loadTodos();
+
+renderTodo(todos);
 
 function addTodo(todos){
     title = titleInput.value.trim();
@@ -42,11 +50,6 @@ addBtn.addEventListener("click",function(){
     }
 })
 
-// 4️⃣ Validation
-// Empty input ❌
-// Show error message
-// Button disabled when input is empty (bonus)
-
 function isValidate(){
     const title = titleInput.value.trim();
     if(title===""){
@@ -57,10 +60,8 @@ function isValidate(){
     return true;
 }
 
-// 5️⃣ localStorage (VERY IMPORTANT)
-// Save todos to localStorage
-// Load todos on page refresh
-// App should remember data
 function saveTodos(){
     localStorage.setItem("todos",JSON.stringify(todos))
 }
+
+
