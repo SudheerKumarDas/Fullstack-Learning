@@ -1,0 +1,23 @@
+/* .box {
+  background: #ddd;
+  padding: 20px;
+  text-align: center;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+} */
+
+.card {
+  background: #ddd;
+  padding: 20px;
+  text-align: center;
+}
+
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 16px;
+}
