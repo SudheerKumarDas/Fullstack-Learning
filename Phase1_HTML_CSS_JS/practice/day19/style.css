@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main{
+    height: 90vh;
+}
+
+.header{
+    background: wheat;
+    height: 10vh;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-list{
+    display: flex;
+    list-style: none;
+    gap: 16px;
+}
+
+.nav-list li{
+    cursor: pointer;
+}
+
+.hero-section{
+    background-color: beige;
+    padding: 20px;
+    /* height: 40vh; */
+    padding: 60px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.section-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section-1 button{
+    padding: 8px;
+    width: 90px;
+}
+
+.image-placeholder {
+    width: 200px;
+    height: 150px;
+    background: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.features{
+    background-color: bisque;
+    /* height: 40vh; */
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.feature-header{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.card-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card{
+    min-height: 100px;
+    width: 150px;
+    background-color: blue;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer{
+    background-color: blueviolet;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
