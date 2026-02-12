@@ -1,5 +1,3 @@
-import React from 'react'
-
 function ProfileCard(props) {
   return (
     <div>
@@ -8,6 +6,7 @@ function ProfileCard(props) {
         <p>{props.msg}</p>
     </div>
   )
+
 }
 
 export default ProfileCard

@@ -10,6 +10,7 @@ function Skills() {
                 return  <li key={index}>{skill}</li>
                 })
             }
+            
         </ul>
   )
 }
