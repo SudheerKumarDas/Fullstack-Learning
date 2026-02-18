@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 (async ()=>{
-    const connection = await mongoose.connect('mongodb+srv://sudheerdas:sudheerdas@cluster0.cmhf2ht.mongodb.net/backend');
+    const connection = await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to MongoDB");
     console.log("Connection object host:", connection.connection.host);
 })()
