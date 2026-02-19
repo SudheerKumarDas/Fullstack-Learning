@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ProductCard from './components/ProductCard';
 import Button from './components/Button';
 import UserCard from './components/UserCard';
+import Form from './components/Form';
 import './App.css'
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
           <UserCard name="Samar" role="Backend Developer"></UserCard>
           <UserCard name="Sudheer" role="Mobile Apps Developer"></UserCard>
       </div>
-      
+      <h2>Practice Form</h2>
+      <Form></Form>      
     </>
   )
 }
