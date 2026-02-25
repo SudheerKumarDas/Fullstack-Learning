@@ -7,6 +7,18 @@ let tasks = [];
 form.addEventListener("submit", function(e){
         e.preventDefault();
         
+        let taskText = taskInput.value.trim();
+
+        if(taskText==="") return
+
+        const task = {
+                id:Date.now(),
+                task:taskText,
+                completed:false
+        }
+        tasks.push(task);
+        taskInput.value = "";
+        renderTasks(tasks);
 })
 
 
