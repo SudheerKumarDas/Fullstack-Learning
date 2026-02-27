@@ -13,13 +13,41 @@ form.addEventListener("submit", function(e){
 
         const task = {
                 id:Date.now(),
-                task:taskText,
+                text:taskText,
                 completed:false
         }
         tasks.push(task);
         taskInput.value = "";
         renderTasks(tasks);
 })
+
+function renderTasks(tasks){
+        taskList.innerText = "";
+
+        tasks.forEach(task => {
+                const li = document.createElement("li");
+                li.textContent = task.text;
+
+                if(task.completed){
+                        li.classList.add = "completed";
+                }
+                li.addEventListener("click",()=>{
+                        task.completed = !task.completed;
+                        renderTasks();
+                });
+                const deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "X";
+
+                deleteBtn.addEventListener("click",(e)=>{
+                        e.stopPropagation();
+                        tasks = tasks.filter(t => t.id !== task.id);
+                        renderTasks();
+                })
+
+                li.appendChild(deleteBtn);
+                taskList.appendChild(li);
+        });
+}
 
 
 
