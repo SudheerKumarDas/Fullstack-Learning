@@ -49,3 +49,10 @@ button:hover{
     text-decoration: line-through;
     opacity: 0.6;
 }
+
+.filter{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
