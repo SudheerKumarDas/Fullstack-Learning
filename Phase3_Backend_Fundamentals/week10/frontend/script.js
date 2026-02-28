@@ -1,52 +1,64 @@
+//state
+let tasks = loadTasks();
+let filter = "all";
+
+//load DOM elements
 const form = document.querySelector("#task-form")
 const taskInput = document.querySelector("#task-input");
 const taskList = document.querySelector("#task-list");
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-let filter = "all";
+// Data Functions
+function loadTasks(){
+    return  JSON.parse(localStorage.getItem("tasks")) || [];
+}
 
-form.addEventListener("submit", function(e){
-        e.preventDefault();
-        
-        let taskText = taskInput.value.trim();
-
-        if(taskText==="") return
-
-        const task = {
-                id:Date.now(),
-                text:taskText,
-                completed:false
-        }
-        tasks.push(task);
-        saveTask();
-        taskInput.value = "";
-        renderTasks(tasks);
-})
-
-function saveTask(){
+function saveTasks(){
         localStorage.setItem("tasks",JSON.stringify(tasks));
 }
 
-function setFilter(type){
-        filter = type;
-        renderTasks();
+function addTask(text){
+        const task = {
+                id:Date.now(),
+                text,
+                Completed:false
+        };
+        tasks.push(task);
+        saveTasks();
+}
+
+function deleteTask(id){
+        tasks = tasks.filter(task => task.id != id)
+        saveTasks();
+}
+
+function toggleTask(id){
+        tasks = tasks.map(task =>
+                        task.id === id ? {...task, Completed: !task.Completed} : tasks
+                )
+        saveTasks();
+}
+
+// UI functions
+
+function getFilteredTasks(){
+                if(filter === "active"){
+                    return tasks.filter(task => !task.completed);
+                }
+
+                if(filter === "completed"){
+                     return tasks.filter(task => task.completed);
+                }      
+        return tasks;
 }
 
 function renderTasks(tasks){
         taskList.innerText = "";
 
-        let filteredTask = tasks;
-
-        if(filter === "active"){
-                filteredTask = tasks.filter(task => !task.completed);
-        }
-
-        if(filter === "completed"){
-                filteredTask = tasks.filter(task => task.completed);
-        }
+        let filteredTask = getFilteredTasks();
 
         if(filteredTask.length === 0){
                 taskList.innerHTML = "<p>No tasks found </p>";
+                return ;
         }
 
         filteredTask.forEach(task => {
@@ -57,7 +69,7 @@ function renderTasks(tasks){
                         li.classList.add = "completed";
                 }
                 li.addEventListener("click",()=>{
-                        task.completed = !task.completed;
+                        toggleTask(task.id);
                         renderTasks();
                 });
                 const deleteBtn = document.createElement("button");
@@ -65,8 +77,8 @@ function renderTasks(tasks){
 
                 deleteBtn.addEventListener("click",(e)=>{
                         e.stopPropagation();
-                        tasks = tasks.filter(t => t.id !== task.id);
-                        saveTask();
+                        deleteTask(task.id);
+                        saveTasks();
                         renderTasks();
                 })
 
@@ -75,5 +87,23 @@ function renderTasks(tasks){
         });
 }
 
-renderTasks();
+// EVENT Handlers
 
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const text = input.value.trim();
+  if (!text) return;
+
+  addTask(text);
+  input.value = "";
+  renderTasks();
+});
+
+function setFilter(type) {
+  filter = type;
+  renderTasks();
+}
+
+// Initial Render
+renderTasks();
