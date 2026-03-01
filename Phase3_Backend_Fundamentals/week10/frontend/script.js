@@ -88,7 +88,6 @@ function renderTasks(tasks){
 }
 
 // EVENT Handlers
-
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
