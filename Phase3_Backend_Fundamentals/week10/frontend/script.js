@@ -63,31 +63,37 @@ function renderTasks(tasks){
 
         filteredTask.forEach(task => {
                 const li = document.createElement("li");
-                li.textContent = task.text;
+                li.dataset.id = task.id;
 
                 if(task.completed){
                         li.classList.add = "completed";
                 }
-                li.addEventListener("click",()=>{
-                        toggleTask(task.id);
-                        renderTasks();
-                });
-                const deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "X";
-
-                deleteBtn.addEventListener("click",(e)=>{
-                        e.stopPropagation();
-                        deleteTask(task.id);
-                        saveTasks();
-                        renderTasks();
-                })
-
-                li.appendChild(deleteBtn);
+                li.innerHTML = `
+                        <span>${task.text}</span>
+                        <button class="delete-btn">X</button>
+                        `;
                 taskList.appendChild(li);
         });
 }
 
+
 // EVENT Handlers
+
+taskList.addEventListener("click", (e)=>{
+        const li = e.target.closest("li");
+        if(!li) return;
+
+        const id = Number(li.dataset.id)
+
+        if(e.target.classList.contains("delete-btn")){
+                deleteTask(id);
+        }else{
+                toggleTask(id);
+        }
+        renderTasks();
+})
+
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
