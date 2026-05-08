@@ -42,22 +42,43 @@ import { useState } from "react";
 //     )
 // }
 
-export default function UseEffectHook(){
-    const [users,setUsers]=useState([]);
-    const [userId, setUsersId]=useState(1);
+// export default function UseEffectHook(){
+//     const [users,setUsers]=useState([]);
+//     const [userId, setUsersId]=useState(1);
     
-    console.log("components renders");
+//     console.log("components renders");
 
+//     useEffect(()=>{
+//             fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+//                 .then(res => res.json())
+//                     .then(data => setUsers(data))
+//     },[userId])
+//     return (
+//         <div>
+//             <h1>User : {userId}</h1>
+//             <h2>{users.name}</h2>
+//             <button onClick={()=>setUsersId(userId+1)}>Change User</button>
+//         </div>
+//     )
+// }
+
+
+export default function UseEffectHook(){
+    const [count, setCount]=useState(0);
+    console.log("renders");
     useEffect(()=>{
-            fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
-                .then(res => res.json())
-                    .then(data => setUsers(data))
-    },[userId])
-    return (
+
+        const timer = setInterval(()=>{
+            setCount(count+1);
+        },1000);
+    
+        return ()=>{
+            clearInterval(timer);
+        }
+    },[count])
+    return ( 
         <div>
-            <h1>User : {userId}</h1>
-            <h2>{users.name}</h2>
-            <button onClick={()=>setUsersId(userId+1)}>Change User</button>
+           <h1> {count} </h1> 
         </div>
     )
 }
