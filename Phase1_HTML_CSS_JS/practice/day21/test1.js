@@ -59,3 +59,34 @@ const multiplyFn = (num1, num2) => {
     return num1*num2;
 }
 console.log(multiplyFn(2,5));
+
+//Now move on to arrays and objects
+
+const linuxDistros = ["ubuntu", "arch", "pop Os", "kali linux"];
+console.log(linuxDistros[0]);
+console.log(linuxDistros[1]);
+console.log(linuxDistros[2]);
+console.log(linuxDistros[3]);
+console.log(linuxDistros[4]);// it gives undefined value 
+
+
+linuxDistros.push("omarchy linux");
+console.log(linuxDistros[0]);
+console.log(linuxDistros[1]);
+console.log(linuxDistros[2]);
+console.log(linuxDistros[3]);
+console.log(linuxDistros[4]);// now it gives value because we push to pos 5 in array
+
+const profile = {
+    name : "sudheer",
+    age : 25
+}
+console.log(profile);
+console.log(typeof(profile));
+
+profile.name = "samrat";
+console.log(profile);
+//we can also access individual values from object
+
+console.log(profile.name);
+
