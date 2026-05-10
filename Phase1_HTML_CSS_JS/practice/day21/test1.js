@@ -18,4 +18,44 @@ console.log(name);
 {
     var x=2;
 }
-console.log(x);
+console.log(x);// it is not block scoped
+
+
+// Functions
+
+function myName(){
+    console.log(name);
+}
+
+myName();
+
+//functions with parameter
+function greetings(name){
+    console.log(name);
+}
+greetings("Sudheer");
+
+//let's create a function which returns value
+function add(){
+    return 2+5;
+}
+
+const addedNum = add();
+console.log(addedNum);
+
+// this is normal function
+function mul(num1, num2){
+    return num1*num2;
+}
+const mulNum = mul(2,4);
+console.log(mulNum);
+
+// Arrow functions to write functions faster and it is way more easier
+const multipliedNum = (num1, num2) => num1 * num2;
+console.log(multipliedNum(2,4));
+
+//we can also write like this
+const multiplyFn = (num1, num2) => {
+    return num1*num2;
+}
+console.log(multiplyFn(2,5));
