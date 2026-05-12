@@ -1,45 +1,82 @@
 
-import { useState } from 'react'
-import './App.css'
+// import { useState } from 'react'
+// import './App.css'
 
-function App() {
+// function App() {
 
+//   return (
+//     <>
+//       <LightBulb/>
+//     </>
+//   )
+// }
+
+// function LightBulb(){
+//     const [bulbOn, setBulbOn]=useState(false);
+//   return ( 
+//     <div>
+//       <LightState bulbOn={bulbOn}/>
+//       <ToggleSwitch setBulbOn={setBulbOn}/>
+//     </div>
+//    )
+// }
+
+// function LightState({bulbOn}){
+//   return (  
+//     <div>
+//       {bulbOn ? "Bulb On": "Bulb Off"}
+//     </div> 
+//   )
+// }
+
+// function ToggleSwitch({setBulbOn}){
+//   function toggle(){
+//       setBulbOn(currentState => !currentState);
+//   }
+//   return (
+//       <>
+//         <button onClick={toggle}>Toggle</button>
+//       </>
+//     )
+// }
+
+//props drilling example
+function App(){
+  const name = "samrat";
   return (
     <>
-      <LightBulb/>
+      <Parent name={name}/>
     </>
   )
 }
 
-function LightBulb(){
-    const [bulbOn, setBulbOn]=useState(false);
+function Parent(props){
   return ( 
     <div>
-      <LightState bulbOn={bulbOn}/>
-      <ToggleSwitch setBulbOn={setBulbOn}/>
+      <Child name={props.name}/>
     </div>
    )
 }
 
-function LightState({bulbOn}){
-  return (  
+function Child(props){
+  return (
     <div>
-      {bulbOn ? "Bulb On": "Bulb Off"}
-    </div> 
+      <GrandChild name={props.name}/>
+    </div>
   )
 }
 
-function ToggleSwitch({setBulbOn}){
-  function toggle(){
-      setBulbOn(currentState => !currentState);
-  }
-  return (
-      <>
-        <button onClick={toggle}>Toggle</button>
-      </>
-    )
+function GrandChild(props){
+  return ( 
+  <div>
+      <h1>Hello, {props.name} </h1>
+  </div> 
+  )
 }
 
+//solution to prop drilling
 
 
-export default App
+
+ export default App
+
