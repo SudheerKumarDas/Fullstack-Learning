@@ -41,42 +41,79 @@
 // }
 
 //props drilling example
+// function App(){
+//   const name = "samrat";
+//   return (
+//     <>
+//       <Parent name={name}/>
+//     </>
+//   )
+// }
+
+// function Parent(props){
+//   return ( 
+//     <div>
+//       <Child name={props.name}/>
+//     </div>
+//    )
+// }
+
+// function Child(props){
+//   return (
+//     <div>
+//       <GrandChild name={props.name}/>
+//     </div>
+//   )
+// }
+
+// function GrandChild(props){
+//   return ( 
+//   <div>
+//       <h1>Hello, {props.name} </h1>
+//   </div> 
+//   )
+// }
+
+//solution to prop drilling
+import { createContext, useContext } from "react";
+
+const UserContext = createContext();
+
 function App(){
   const name = "samrat";
   return (
     <>
-      <Parent name={name}/>
+      <UserContext.Provider value={name}>
+        <Parent />
+      </UserContext.Provider>
     </>
   )
 }
 
-function Parent(props){
+function Parent(){
   return ( 
     <div>
-      <Child name={props.name}/>
+      <Child/>
     </div>
    )
 }
 
-function Child(props){
+function Child(){
   return (
     <div>
-      <GrandChild name={props.name}/>
+      <GrandChild />
     </div>
   )
 }
 
-function GrandChild(props){
+function GrandChild(){
+  const name = useContext(UserContext);
   return ( 
   <div>
-      <h1>Hello, {props.name} </h1>
+      <h1>Hello,{name}</h1>
   </div> 
   )
 }
-
-//solution to prop drilling
-
-
 
  export default App
 
