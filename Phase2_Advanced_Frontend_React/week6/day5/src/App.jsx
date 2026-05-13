@@ -75,44 +75,73 @@
 // }
 
 //solution to prop drilling
-import { createContext, useContext } from "react";
+// import { createContext, useContext } from "react";
 
-const UserContext = createContext();
+// const UserContext = createContext();
 
-function App(){
-  const name = "samrat";
+// function App(){
+//   const name = "samrat";
+//   return (
+//     <>
+//       <UserContext.Provider value={name}>
+//         <Parent />
+//       </UserContext.Provider>
+//     </>
+//   )
+// }
+
+// function Parent(){
+//   return ( 
+//     <div>
+//       <Child/>
+//     </div>
+//    )
+// }
+
+// function Child(){
+//   return (
+//     <div>
+//       <GrandChild />
+//     </div>
+//   )
+// }
+
+// function GrandChild(){
+//   const name = useContext(UserContext);
+//   return ( 
+//   <div>
+//       <h1>Hello,{name}</h1>
+//   </div> 
+//   )
+// }
+
+function App() {
+  const user = {
+    name: "Samrat",
+    isAdmin: true,
+  };
+
+  return <Dashboard user={user} />;
+}
+
+function Dashboard({ user }) {
+  return <Layout user={user} />;
+}
+
+function Layout({ user }) {
+  return <Navbar user={user} />;
+}
+
+function Navbar({ user }) {
+  return <UserProfile user={user} />;
+}
+
+function UserProfile({ user }) {
   return (
-    <>
-      <UserContext.Provider value={name}>
-        <Parent />
-      </UserContext.Provider>
-    </>
-  )
-}
-
-function Parent(){
-  return ( 
     <div>
-      <Child/>
+      <h2>Welcome {user.name}</h2>
     </div>
-   )
-}
-
-function Child(){
-  return (
-    <div>
-      <GrandChild />
-    </div>
-  )
-}
-
-function GrandChild(){
-  const name = useContext(UserContext);
-  return ( 
-  <div>
-      <h1>Hello,{name}</h1>
-  </div> 
-  )
+  );
 }
 
  export default App
