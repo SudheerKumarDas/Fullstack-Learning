@@ -115,6 +115,8 @@
 //   )
 // }
 
+import { MemoHook } from "./components/MemoHook";
+
 function App() {
   const user = {
     name: "Samrat",
@@ -122,6 +124,7 @@ function App() {
   };
 
   return <Dashboard user={user} />;
+  
 }
 
 function Dashboard({ user }) {
