@@ -8,7 +8,7 @@ function slowFunction(num) {
   return num * 2;
 }
 
-function App() {
+function MemoHook() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState("");
 
@@ -31,3 +31,5 @@ function App() {
     </>
   );
 }
+
+export default MemoHook;
