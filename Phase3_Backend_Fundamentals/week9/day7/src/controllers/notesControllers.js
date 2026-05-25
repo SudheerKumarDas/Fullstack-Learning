@@ -1,4 +1,4 @@
-import Note from "../models/Note"
+import Note from "../models/Note.js"
 
 
 export const getAllNotes = async (req,res) => {
@@ -17,15 +17,25 @@ export const createNotes = async(req,res) => {
         const {title,content}=req.body;
         const newNote = new Note({title , content});
         await newNote.save();
-        res.status(201).json({message:"New note created successfully!!"});
+        res.status(201).json(newNote);
     } catch (error) {
         console.error("Error in createNotes controller :",error);
         res.status(500).json({message:"Internal server error"});
     }
 }
 
-export const updateNotes = (req,res) => {
-    res.status(200).json({message:"Note updated successfully!!"})
+export const updateNotes = async (req,res) => {
+    try {
+        const {title,content}=req.body;
+        const updatedNote = await Note.findByIdAndUpdate(req.params.id,{title,content},{new:true});
+        if(!updateNotes){
+          return  res.status(404).json({message:"Note not found!!"})
+        }
+        res.status(200).json(updatedNote);
+    } catch (error) {
+        console.error("Error in updateNotes controller :",error);
+        res.status(500).json({message:"Internal server error"});
+    }
 }
 
 export const deleteNotes = (req,res) => {
