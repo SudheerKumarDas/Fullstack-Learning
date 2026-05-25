@@ -7,8 +7,6 @@ import rateLimiter from './middlewares/rateLimiter.js';
 dotenv.config();
 const app = express();
 
-connectDB()
-
 app.use((req,res,next)=>{
     console.log(`The Req method is ${req.method} and the Req URL is ${req.url}`)
     next();
@@ -16,11 +14,16 @@ app.use((req,res,next)=>{
 
 app.use(express.json());
 app.use(rateLimiter)
+
 app.use("/api/notes",notesRoutes)
 
 const PORT=5000 || process.env.PORT;
 
-
-app.listen(PORT,()=>{
-    console.log(`server has started at port:${PORT}`);
+//this is done because once database gets connected then only our app starts
+connectDB().then(()=>{
+        app.listen(PORT,()=>{
+        console.log(`server has started at port:${PORT}`);
+    })
 })
+    
+
