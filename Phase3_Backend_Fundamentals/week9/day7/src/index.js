@@ -8,7 +8,10 @@ const app = express();
 
 connectDB()
 
-console.log(process.env.MONGO_URI);
+app.use((req,res,next)=>{
+    console.log(`The Req method is ${req.method} and the Req URL is ${req.url}`)
+    next();
+})
 
 app.use(express.json());
 app.use("/api/notes",notesRoutes)
