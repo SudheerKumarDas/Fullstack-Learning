@@ -16,7 +16,7 @@ app.use((req,res,next)=>{
 app.use(express.json());
 app.use("/api/notes",notesRoutes)
 
-const PORT=5000;
+const PORT=5000 || process.env.PORT;
 
 
 app.listen(PORT,()=>{
