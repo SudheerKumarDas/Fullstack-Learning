@@ -1,4 +1,3 @@
-//mongodb+srv://samratsudheerdas:Samrat43@!@cluster0.ddcjji8.mongodb.net/?appName=Cluster0
 
 import mongoose from "mongoose";
 
