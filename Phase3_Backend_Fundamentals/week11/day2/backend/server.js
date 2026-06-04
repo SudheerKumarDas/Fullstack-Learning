@@ -41,6 +41,30 @@ app.post("/signup",(req,res)=>{
     )
 })
 
+app.post("/signin",(req,res)=>{
+    const {username,password}=req.body;
+    if(!username || !password){
+        res.status(300).json(
+            {
+                message:"provide both username and password"
+            }
+        )
+        return
+    }
+    if(users.find(user=>user.username===username&&user.password===password)){
+        res.status(201).json(
+            {
+                message:"User signed in successfully",
+                user:{
+                    username : username,
+                    password : password
+                }
+            }
+        )
+        return;
+    }
+})
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT,()=>{
