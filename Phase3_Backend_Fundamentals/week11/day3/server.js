@@ -65,4 +65,29 @@ app.post("/signin",(req,res)=>{
     })
 })
 
+app.get("/me",(req,res)=>{
+    const token = req.headers.token;
+    const decodedInformation = jwt.verify(token,JWT_SECRET);
+    const unAuthDecodedInfo = jwt.decode(token);
+    console.log(unAuthDecodedInfo);
+    const username = decodedInformation.username;
+
+    let foundUser=null;
+    for(let i=0;i<users.length;i++){
+        if(users[i].username===username){
+            foundUser=users[i];
+        }
+    }
+    if(foundUser){
+        res.json({
+            username:foundUser.username,
+            password:foundUser.password
+        })
+    }else{
+        res.json({
+            message:"invalid token"
+        })
+    }
+})
+
 app.listen(3000)
