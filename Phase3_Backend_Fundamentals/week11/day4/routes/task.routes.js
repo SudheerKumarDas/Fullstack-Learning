@@ -84,8 +84,41 @@ router.get("/:id",async(req,res) => {
 
 router.put("/:id",async(req,res)=>{
     try {
-        
+        const {title,description,completed,priority,dueDate} = req.body;
+        const task = await Task.findOneAndUpdate(
+            {_id : req.params.id , user:req.user._id},
+            { title, description, completed, priority, dueDate},
+            {new:true, runValidators:true}
+        )
+        if(!task){
+            return res.status(404).json({
+                error:"Task not found"
+            })
+        }
+        res.json({
+            message:"task updated",
+            task
+        })
     } catch (error) {
-        
+        res.status(500).json({ error: "Could not update task." });
     }
 })
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const task = await Task.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user._id,
+    });
+ 
+    if (!task) {
+      return res.status(404).json({ error: "Task not found." });
+    }
+ 
+    res.json({ message: "Task deleted successfully." });
+  } catch (error) {
+    res.status(500).json({ error: "Could not delete task." });
+  }
+});
+
+export default router;
