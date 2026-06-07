@@ -29,3 +29,36 @@ router.get("/", async (req,res)=>{
         })
     }
 })
+
+router.post("/",async(req,res)=>{
+    try {
+        const {title,description,priority,dueDate}=req.body;
+
+        if(!title){
+            return res.status(400).json({
+                error:"Title is required"
+            })
+        }
+        const task = await Task.create({
+            title,
+            description,
+            priority,
+            dueDate,
+            user:req.user._id
+        })
+        res.status(201).json({
+            message:"Task Created",
+            task
+        })
+    } catch (error) {
+        if (error.name === "ValidationError") {
+            const messages = Object.values(error.errors).map((e) => e.message);
+            return res.status(400).json({ 
+                error: messages.join(", ") 
+            });
+        }
+            res.status(500).json({ 
+                error: "Could not create task." 
+            });
+        }
+})
