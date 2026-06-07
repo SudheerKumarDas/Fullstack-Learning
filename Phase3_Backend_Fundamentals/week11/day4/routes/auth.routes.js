@@ -2,6 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken"
 
 import User from "../model/User.model.js";
+import { protect } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -55,3 +56,64 @@ router.post("/register",async (req,res)=>{
     }
 })
 
+router.post("/login", async (req,res)=>{
+    try {
+        const {email,password}=req.body;
+        if(!email || !password){
+            return res.status(400).json({
+                error:"Email and Password are required both"
+            })
+        }
+        const foundUser = await User.findOne({email}).select("+password");
+
+        if(!foundUser){
+            return res.status(401).json({
+                error:"Invalid email or password"
+            })
+        }
+        const isPasswordCorrect = await foundUser.comparePassword(password)
+        if(!isPasswordCorrect){
+            return res.status(401).json({
+                error:"invalid email or password"
+            })
+        }
+        const token = generateToken(foundUser._id);
+        res.json({
+            message:"Logged in successfully",
+            token,
+            user:{
+                id:foundUser._id,
+                name:foundUser.name,
+                email:foundUser.email
+            }
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            error:"Server error, Please try again later"
+        })
+    }
+})
+
+router.get("/me",protect, (req,res)=>{    
+    // try {
+    //     const user = req.user;
+    //     res.json({
+    //         id:user._id,
+    //         email:user.email,
+    //         name:user.name
+    //     })
+    // } catch (error) {
+    //     console.log("Error in getting user",error);
+    //     res.status(500).json({
+    //         error:"server failed"
+    //     })
+    // }
+
+    const {_id:id,name,email} = req.user;
+    res.json({
+        id,
+        name,
+        email
+    })
+})
