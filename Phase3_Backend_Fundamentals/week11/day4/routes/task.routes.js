@@ -62,3 +62,30 @@ router.post("/",async(req,res)=>{
             });
         }
 })
+
+router.get("/:id",async(req,res) => {
+    try {
+        const task = await Task.findOne({
+            _id:req.params.id,
+            user:req.user._id
+        })
+        if(!task){
+            return res.status(404).json({
+                message:"Task not found"
+            })
+        }
+        res.json({task})
+    } catch (error) {
+       res.status(500).json({
+        message:"could not fetch task"
+       }) 
+    }
+})
+
+router.put("/:id",async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
+})
