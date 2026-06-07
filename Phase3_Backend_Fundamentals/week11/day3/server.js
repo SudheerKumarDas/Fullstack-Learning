@@ -1,5 +1,12 @@
 import express from "express"
 import jwt from "jsonwebtoken"
+
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const JWT_SECRET = "randomsecretstring";
 
 const app = express();
@@ -7,6 +14,10 @@ const app = express();
 const users=[];
 
 app.use(express.json());
+
+app.get("/",(req,res)=>{
+    res.sendFile(__dirname + "/public/index.html")
+})
 
 app.post("/signup",(req,res)=>{
     const username = req.body.username;
@@ -65,16 +76,29 @@ app.post("/signin",(req,res)=>{
     })
 })
 
-app.get("/me",(req,res)=>{
-    const token = req.headers.token;
-    const decodedInformation = jwt.verify(token,JWT_SECRET);
-    const unAuthDecodedInfo = jwt.decode(token);
-    console.log(unAuthDecodedInfo);
-    const username = decodedInformation.username;
+const auth = (req,res,next) => {
+        const token = req.headers.token;
+        const decodedInformation = jwt.verify(token,JWT_SECRET);
+        if(!decodedInformation){
+            res.json({
+                message:"invalid token"
+            })
+            return;
+        }
+        req.username = decodedInformation.username;
+        next();
+}
+app.get("/me",auth,(req,res)=>{
+    // const token = req.headers.token;
+    // const decodedInformation = jwt.verify(token,JWT_SECRET);
+    // const unAuthDecodedInfo = jwt.decode(token);
+    // console.log(unAuthDecodedInfo);
+    // const username = decodedInformation.username;
 
+    //const user = req.username;
     let foundUser=null;
     for(let i=0;i<users.length;i++){
-        if(users[i].username===username){
+        if(users[i].username===req.username){
             foundUser=users[i];
         }
     }
