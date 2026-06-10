@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken"
 
 import User from "../models/user.model.js";
+import { generateToken } from "../utils/generateToken.js";
 
 export const userRegister = async (req, res) => {
   try {
@@ -41,9 +43,16 @@ export const userLogin = async (req,res) => {
                 error:"User does not exist..."
             })
         }
+        const isMatch = await bcrypt.compare(password,foundUser.password);
+
+        if(!isMatch) return res.status(401).json({error:"credentials not matched..."})
+        
+        const token = await generateToken(foundUser._id)
+        
         res.status(201).json({
             message:"User logged in successfully",
-            username:foundUser.username
+            username:foundUser.username,
+            token
         })
     } catch (error) {
         console.log("Error in user login...",error)
