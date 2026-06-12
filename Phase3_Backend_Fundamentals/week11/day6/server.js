@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import { z } from "zod"
 
 import { connectDB } from "./src/config/db.js";
 import { todoModel, userModel } from "./src/models/dbModel.js";
@@ -16,6 +17,20 @@ app.use(express.json())
 const PORT = process.env.PORT || 3000;
 
 app.post("/signup",async (req, res) => {
+    const requiredBody = z.object({
+        email:z.string().min(5).max(100).email(),
+        password:z.string().min(5).max(100),
+        name:z.string().min(5).max(100)
+    })
+
+    const parsedDataWithSuccess = requiredBody.safeParse(req.body);
+
+    if(!parsedDataWithSuccess.success){
+        return res.json({
+            message:"incorrect format"
+        })
+    }
+
     const {name,email,password} = req.body;
     const hashedPassword = await bcrypt.hash(password,5);
     await userModel.insertOne({
@@ -40,7 +55,7 @@ app.post("/signin",async (req, res) => {
         })
     }
     const isPasswordMatch = await bcrypt.compare(password,user.password)
-    
+
     if(user){
         const token = jwt.sign({
             id:user._id.toString()
