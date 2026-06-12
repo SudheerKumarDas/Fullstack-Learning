@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 const ObjectId = mongoose.ObjectId;
 
-const userSchema = new schema({
+const userSchema = new Schema({
     name:String,
     email:String,
     password:String
 })
 
-const todoSchema = new schema({
+const todoSchema = new Schema({
     title:String,
     description:String,
     userId:ObjectId
