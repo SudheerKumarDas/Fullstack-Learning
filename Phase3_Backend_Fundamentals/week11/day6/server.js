@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
 
 import { connectDB } from "./src/config/db.js";
 import { todoModel, userModel } from "./src/models/dbModel.js";
@@ -16,10 +17,11 @@ const PORT = process.env.PORT || 3000;
 
 app.post("/signup",async (req, res) => {
     const {name,email,password} = req.body;
+    const hashedPassword = await bcrypt.hash(password,5);
     await userModel.insertOne({
         name:name,
         email:email,
-        password:password
+        password:hashedPassword
     })
     res.json({
         message:"you are signed up successfully"
@@ -31,8 +33,14 @@ app.post("/signin",async (req, res) => {
 
     const user = await userModel.findOne({
         email:email,
-        password:password
     })
+    if(!user){
+        return res.status(403).json({
+            message:"User not found"
+        })
+    }
+    const isPasswordMatch = await bcrypt.compare(password,user.password)
+    
     if(user){
         const token = jwt.sign({
             id:user._id.toString()
