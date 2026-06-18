@@ -84,5 +84,26 @@ export const login = async (req, res) => {
         }
     )
 
-  } catch (error) {}
+    res.cookie("refreshToken",refreshToken,{
+        httpOnly:true,
+        secure:true,
+        sameSite:"strict",
+        maxAge:7*24*60*60*1000
+    })
+
+    res.status(200).json({
+        message:"logged in successfully",
+        user:{
+            username:user.username,
+            email:user.email
+        },
+        refreshToken
+    })
+
+  } catch (error) {
+    console.error("Error logging in ",error);
+    res.status(500).json({
+        message:"Internal server error"
+    })
+  }
 };
