@@ -1,4 +1,5 @@
 import userModel from "../models/user.model.js";
+import jwt from "jsonwebtoken"
 
 export const register = async (req,res) => {
     try {
@@ -17,7 +18,7 @@ export const register = async (req,res) => {
         })
         if(alreadyRegistered){
             return res.status(409).json({
-                message:"username or email already exists";
+                message:"username or email already exists"
             })
         }
         const hashedPassword = await bcrypt.hash(password,10);
@@ -49,19 +50,29 @@ export const login = async (req,res) => {
                 message:"provide all credentials"
             })
         }
-        const userFound = await userModel.findOne({email});
-        if(!userFound){
+        const user = await userModel.findOne({email});
+        if(!user){
             return res.status(403).json({
                 message:"User not found"
             })
         }
 
-        const isMatchPassword = await bcrypt.compare(password,userFound.password)
-        if(isMatchPassword){
+        const isMatchPassword = await bcrypt.compare(password,user.password);
+
+        if(!isMatchPassword){
             return res.status(403).json({
-                message:""
+                message:"credentials not match"
             })
         }
+
+        const refreshToken = await jwt.sign({
+            id:user._id
+        },
+        process.env.JWT_SECRET
+    ,{
+        
+    }
+)
     } catch (error) {
         
     }
