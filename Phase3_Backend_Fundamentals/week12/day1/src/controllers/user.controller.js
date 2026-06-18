@@ -1,11 +1,11 @@
 import userModel from "../models/user.model.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 
 export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    console.log(username)
+    console.log(username);
     if (!username || !email || !password) {
       return res.status(403).json({
         message: "provide all the fields",
@@ -26,7 +26,7 @@ export const register = async (req, res) => {
       email,
       password: hashedPassword,
     });
-    console.log(user)
+    console.log(user);
     res.status(201).json({
       message: "User registered successfully",
       user: {
@@ -57,11 +57,11 @@ export const login = async (req, res) => {
       });
     }
 
-    console.log(user)
+    console.log(user);
 
     const isMatchPassword = await bcrypt.compare(password, user.password);
 
-    console.log(isMatchPassword)
+    console.log(isMatchPassword);
 
     if (!isMatchPassword) {
       return res.status(403).json({
@@ -79,7 +79,7 @@ export const login = async (req, res) => {
       },
     );
 
-    console.log(refreshToken)
+    console.log(refreshToken);
 
     const refreshTokenHash = bcrypt.hash(refreshToken, 10);
 
@@ -144,6 +144,37 @@ export const getMe = async (req, res) => {
     });
   } catch (error) {
     console.error("Error logging in ", error);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
+export const refreshToken = async (req, res) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+    console.log(refreshToken)
+    if (!refreshToken) {
+      return res.status(401).json({
+        message: "Refresh token not found",
+      });
+    }
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+    const accessToken = jwt.sign(
+      {
+        id: decoded.id,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "15m",
+      },
+    );
+    res.status(200).json({
+        message:"Access token refreshed successfully",
+        accessToken
+    })
+  } catch (error) {
+    console.error("Error in getting access token ", error);
     res.status(500).json({
       message: "Internal server error",
     });
