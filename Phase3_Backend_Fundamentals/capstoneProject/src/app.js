@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/api",todoRoutes);
-app.use("/api/users/",userRoutes);
+app.use("/todos",todoRoutes);
+app.use("/users/",userRoutes);
 
 export default app;
