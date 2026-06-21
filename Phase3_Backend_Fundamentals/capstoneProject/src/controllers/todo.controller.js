@@ -113,7 +113,11 @@ export const getSingleTodo = async (req,res) => {
 export const markTodoAsComplete = async (req,res) => {
   try {
     const todoId = req.params.id;
-    const todo = await Todo.findByIdAndUpdate(todoId,req.body,{returnDocument:"after"});
+    const todo = await Todo.findByIdAndUpdate(todoId,
+        {
+          completed:true
+        }
+      ,{returnDocument:"after"});
     if(!todo){
       return res.status(400).json({
         message:"Todo not found"
@@ -121,6 +125,31 @@ export const markTodoAsComplete = async (req,res) => {
     }
     res.status(200).json({
       message:"Todo marked as completed",
+      todo:todo
+    })
+  } catch (error) {
+    console.error("Error marking todo as completed ", error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
+
+export const markTodoAsNotComplete = async (req,res) => {
+  try {
+    const todoId = req.params.id;
+    const todo = await Todo.findByIdAndUpdate(todoId,
+      {
+        completed:false
+      }
+      ,{returnDocument:"after"});
+    if(!todo){
+      return res.status(400).json({
+        message:"Todo not found"
+      })
+    }
+    res.status(200).json({
+      message:"Todo marked as Not completed",
       todo:todo
     })
   } catch (error) {
