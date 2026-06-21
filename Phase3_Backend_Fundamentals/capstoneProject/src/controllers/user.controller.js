@@ -101,8 +101,7 @@ export const userInfo = async (req,res) => {
 export const userTodos = async (req,res) => {
     try {
         const id = req.id;
-        const todos = await Todo.find({userId:id})
-        console.log(todos)
+        const todos = await Todo.find({userId:id},{title:1,description:1,completed:1,_id:0})
         res.status(200).json({
             message:"fetched user todos successfully",
             todos:todos
