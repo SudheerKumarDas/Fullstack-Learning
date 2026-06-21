@@ -40,3 +40,31 @@ export const getAllTodos = async(req,res) =>{
         })
   }
 }
+
+export const updateTodo = async (req,res) => {
+  try {
+        const todoId = req.params.id;
+        console.log(todoId);
+        const {title,description,completed}=req.body;
+        
+        const updateTodo = await Todo.findByIdAndUpdate(todoId,
+          {
+            title:title,
+            description:description,
+            completed:completed
+          },
+          {
+            new:true
+          }
+        )
+        res.status(200).json({
+          message:"Todo updated successfully",
+          updateTodo
+        })    
+  } catch (error) {
+    console.error("Error getting todos ",error);
+    res.status(500).json({
+        message:"Internal Server Error"
+    })
+  }
+}
