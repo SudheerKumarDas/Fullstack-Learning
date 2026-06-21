@@ -8,8 +8,9 @@ export const createTodo = async (req, res) => {
         message: "Provide all the fields",
       });
     }
+    const trimmedTitle = title.trim();
     const todo = await Todo.create({
-      title,
+      title:trimmedTitle,
       description,
       completed
     });
