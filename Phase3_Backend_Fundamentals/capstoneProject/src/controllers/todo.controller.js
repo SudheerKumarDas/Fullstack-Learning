@@ -88,3 +88,24 @@ export const deleteTodo = async (req, res) => {
     });
   }
 };
+
+export const getSingleTodo = async (req,res) => {
+  try {
+    const todoId = req.params.id;
+    const todo = await Todo.findById(todoId);
+    if(!todo){
+      return res.status(404).json({
+        message:"Todo not found"
+      })
+    }
+    res.status(200).json({
+      message:"Todo fetched successfully",
+      todo:todo
+    })
+  } catch (error) {
+    console.error("Error getting todos ", error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
