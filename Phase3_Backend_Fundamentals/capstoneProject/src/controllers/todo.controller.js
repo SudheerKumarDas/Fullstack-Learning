@@ -2,7 +2,7 @@ import Todo from "../models/Todo.js";
 
 export const createTodo = async (req, res) => {
   try {
-    const { title, description, completed } = req.body;
+    const { title, description, completed, userId } = req.body;
     if (!title || !description || completed === undefined) {
       return res.status(400).json({
         message: "Provide all the fields",
@@ -13,6 +13,7 @@ export const createTodo = async (req, res) => {
       title: trimmedTitle,
       description,
       completed,
+      userId
     });
     console.log(todo);
     res.status(201).json({

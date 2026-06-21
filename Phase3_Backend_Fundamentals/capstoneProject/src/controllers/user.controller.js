@@ -2,6 +2,7 @@ import bcrypt, { hash } from "bcrypt"
 import jwt from "jsonwebtoken"
 
 import User from "../models/User.js";
+import Todo from "../models/Todo.js";
 
 export const userRegister = async (req,res) => {
     try {
@@ -88,6 +89,23 @@ export const userInfo = async (req,res) => {
         res.status(200).json({
             message:"User info page",
             user:userResponse
+        })
+    } catch (error) {
+        console.error("Error logging user ",error);
+        res.status(500).json({
+            message:"Internal server error"
+        })
+    }
+}
+
+export const userTodos = async (req,res) => {
+    try {
+        const id = req.id;
+        const todos = await Todo.find({userId:id})
+        console.log(todos)
+        res.status(200).json({
+            message:"fetched user todos successfully",
+            todos:todos
         })
     } catch (error) {
         console.error("Error logging user ",error);
