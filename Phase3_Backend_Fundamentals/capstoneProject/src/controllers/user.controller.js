@@ -33,3 +33,39 @@ export const userRegister = async (req,res) => {
         })
     }
 }
+
+export const userLogin = async (req,res) => {
+    try {
+        const {email,password} = req.body;
+        if(!email || !password){
+            return res.status(400).json({
+                message:"provide the fields"
+            })
+        }
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(404).json({
+                message:"User not found"
+            })
+        }
+        const isPasswordMatch = await bcrypt.compare(password,user.password);
+        if(!isPasswordMatch){
+            return res.status(409).json({
+                message:"Invalid credentials"
+            })
+        }
+        const userResponse = {
+            username:user.username,
+            email:user.email
+        }
+        res.status(200).json({
+            message:"User logged in successfully",
+            user:userResponse
+        })
+    } catch (error) {
+        console.error("Error logging user ",error);
+        res.status(500).json({
+            message:"Internal server error"
+        })
+    }
+}
