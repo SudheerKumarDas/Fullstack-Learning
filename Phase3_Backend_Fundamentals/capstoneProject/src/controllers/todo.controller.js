@@ -26,3 +26,17 @@ export const createTodo = async (req, res) => {
         })
   }
 };
+
+export const getAllTodos = async(req,res) =>{
+  try {
+    const todos = await Todo.find({});
+    res.status(200).json({
+      todos:todos
+    })
+  } catch (error) {
+        console.error("Error getting todos ",error);
+        res.status(500).json({
+            message:"Internal Server Error"
+        })
+  }
+}
