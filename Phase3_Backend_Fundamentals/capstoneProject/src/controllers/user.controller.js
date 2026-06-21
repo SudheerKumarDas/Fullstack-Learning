@@ -1,4 +1,5 @@
 import bcrypt, { hash } from "bcrypt"
+import jwt from "jsonwebtoken"
 
 import User from "../models/User.js";
 
@@ -58,8 +59,34 @@ export const userLogin = async (req,res) => {
             username:user.username,
             email:user.email
         }
+        const accessToken = await jwt.sign({
+            id:user._id
+        },process.env.ACCESS_TOKEN,{
+            expiresIn:"2h"
+        })
         res.status(200).json({
             message:"User logged in successfully",
+            user:userResponse,
+            accessToken:accessToken
+        })
+    } catch (error) {
+        console.error("Error logging user ",error);
+        res.status(500).json({
+            message:"Internal server error"
+        })
+    }
+}
+
+export const userInfo = async (req,res) => {
+    try {
+        const id = req.id;
+        const user = await User.findById(id);
+        const userResponse={
+            username:user.username,
+            email:user.email
+        }
+        res.status(200).json({
+            message:"User info page",
             user:userResponse
         })
     } catch (error) {
