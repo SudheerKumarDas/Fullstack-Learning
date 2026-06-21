@@ -10,61 +10,81 @@ export const createTodo = async (req, res) => {
     }
     const trimmedTitle = title.trim();
     const todo = await Todo.create({
-      title:trimmedTitle,
+      title: trimmedTitle,
       description,
-      completed
+      completed,
     });
-    console.log(todo)
+    console.log(todo);
     res.status(201).json({
       message: "Todo created successfully",
-      todo
+      todo,
     });
   } catch (error) {
-        console.error("Error creating todo ",error);
-        res.status(500).json({
-            message:"Internal Server Error"
-        })
+    console.error("Error creating todo ", error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
   }
 };
 
-export const getAllTodos = async(req,res) =>{
+export const getAllTodos = async (req, res) => {
   try {
     const todos = await Todo.find({});
     res.status(200).json({
-      todos:todos
-    })
+      todos: todos,
+    });
   } catch (error) {
-        console.error("Error getting todos ",error);
-        res.status(500).json({
-            message:"Internal Server Error"
-        })
-  }
-}
-
-export const updateTodo = async (req,res) => {
-  try {
-        const todoId = req.params.id;
-        console.log(todoId);
-        const {title,description,completed}=req.body;
-        
-        const updateTodo = await Todo.findByIdAndUpdate(todoId,
-          {
-            title:title,
-            description:description,
-            completed:completed
-          },
-          {
-            new:true
-          }
-        )
-        res.status(200).json({
-          message:"Todo updated successfully",
-          updateTodo
-        })    
-  } catch (error) {
-    console.error("Error getting todos ",error);
+    console.error("Error getting todos ", error);
     res.status(500).json({
-        message:"Internal Server Error"
-    })
+      message: "Internal Server Error",
+    });
   }
-}
+};
+
+export const updateTodo = async (req, res) => {
+  try {
+    const todoId = req.params.id;
+    const updateTodo = await Todo.findByIdAndUpdate(
+      todoId,
+      req.body, //this ensures that only the given fields are updated
+      {
+        returnDocument: "after",
+      },
+    );
+    if (!updateTodo) {
+      return res.status(404).json({
+        message: "todo not found",
+      });
+    }
+    res.status(200).json({
+      message: "Todo updated successfully",
+      updateTodo,
+    });
+  } catch (error) {
+    console.error("Error updating todos ", error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export const deleteTodo = async (req, res) => {
+  try {
+    const todoId = req.params.id;
+    const deleteTodo = await Todo.findByIdAndDelete(todoId);
+    if (!deleteTodo) {
+      return res.status(404).json({
+        message: "Todo not found",
+      });
+    }
+    res.status(200).json({
+      message: "Todo deleted successfully",
+      deletedTodo: deleteTodo,
+    });
+  } catch (error) {
+    console.error("Error getting todos ", error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
