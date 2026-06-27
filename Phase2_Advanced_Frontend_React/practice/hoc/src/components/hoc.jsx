@@ -1,13 +1,13 @@
 import React from 'react'
 
-const Hoc = (component) => {
+const hoc = (Component) => {
   return ()=>{
     return (
         <div className='border-4 border-black'>
-            <component/>
+            <Component/>
         </div>
     )
   }
 }
 
-export default Hoc
+export default hoc
