@@ -1,0 +1,82 @@
+
+import './App.css'
+
+import Alpha from './components/Alpha.jsx'
+import Beta from './components/Beta.jsx'
+import hoc from './components/hoc.jsx'
+import withCardLook from './components/withCardLook.jsx';
+
+function App() {
+  const WithBorderAlpha = hoc(Alpha);
+  const WithBorderBeta = hoc(Beta);
+
+  const AlphaWithCardLook = withCardLook(Alpha);
+  const BetaWithCardLook = withCardLook(Beta);
+
+  return (
+    <div className='m-3'>
+       <WithBorderAlpha/>
+       <br />
+       <WithBorderBeta/>
+       <br />
+       <AlphaWithCardLook user="Samrat" />
+       <br />
+       <BetaWithCardLook/>
+    </div>
+  )
+}
+
+export default App
+
+import React from 'react'
+
+function withCardLook(Component) {
+  return (props) => {
+    return (
+        <div className='bg-green-300 p-4 rounded-2xl'>
+            <Component {...props}/>
+        </div>
+    )
+  }
+}
+
+export default withCardLook
+
+import React from 'react'
+
+const Alpha = (props) => {
+  return (
+    <div>
+        <h1>Hello From Alpha to </h1>
+        {props.user}
+        <h2>This is second heading</h2>
+        <p>This is a paragraph in alpha component.</p>
+    </div>
+  )
+}
+
+export default Alpha
+
+import React from 'react'
+
+const Beta = () => {
+  return (
+    <div>Beta</div>
+  )
+}
+
+export default Beta
+
+import React from 'react'
+
+const hoc = (Component) => {
+  return ()=>{
+    return (
+        <div className='border-4 border-black'>
+            <Component/>
+        </div>
+    )
+  }
+}
+
+export default hoc
