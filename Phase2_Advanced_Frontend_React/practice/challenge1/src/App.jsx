@@ -1,13 +1,13 @@
-
+import UserProfile from './component/UserProfile.jsx'
 import './App.css'
 
 function App() {
   
 
   return (
-    <>
-      <h1>Challenge 1</h1>
-    </>
+    <div className='w-full h-dvh flex justify-center items-center m-2 p-2 bg-amber-100'>
+      <UserProfile/>
+    </div>
   )
 }
 
