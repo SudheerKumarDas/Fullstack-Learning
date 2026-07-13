@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,  
         minLength:6,
-        trim:true
+        trim:true,
+        select:false
     },
     profileImage:{
         type:String,

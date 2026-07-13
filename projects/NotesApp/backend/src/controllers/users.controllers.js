@@ -6,7 +6,7 @@ export const userRegister = async (req,res) => {
     try {
         const {username,email,password}=req.body;
         if(!username || !email || !password){
-            res.status(401).json({
+            return res.status(401).json({
                 message:"Not enough credentials"
             })
         }
@@ -21,16 +21,18 @@ export const userRegister = async (req,res) => {
                 message:"User already exists"
             })
         }
-        const hashedPassword = bcrypt.hash(password,10);
+        const hashedPassword = await bcrypt.hash(password,10);
         const createdUser = await User.create({
             username:username,
             email:email,
             password:hashedPassword
         })
+        const userResponse = createdUser.toObject();
+        delete userResponse.password;
         res.status(201).json({
             message:"User created successfully",
             createdUser:{
-                user:createdUser
+                user:userResponse
             }
         })
     } catch (error) {
