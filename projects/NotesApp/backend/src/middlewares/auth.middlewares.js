@@ -15,7 +15,7 @@ export const authUser = async (req,res,next) => {
             })
         }
         const id = decoded.id;
-        req.body.id=id;
+        req.user = { id };
         next();
     } catch (error) {
         console.error(`Error in authenticating user ${error}`);

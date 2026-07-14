@@ -96,7 +96,7 @@ export const userLogin = async (req, res) => {
 
 export const getUserInfo = async (req,res) => {
   try {
-        const { id } = req.params.id;
+        const { id } = req.user;
         const user = await User.findById(id);
         res.status(200).json({
           message:"user fetched successfully",
