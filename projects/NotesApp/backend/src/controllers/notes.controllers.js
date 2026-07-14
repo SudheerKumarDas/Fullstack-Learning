@@ -3,29 +3,65 @@ import Note from "../models/notes.models.js";
 export const createNotes = async (req, res) => {
   try {
     const { id } = req.user;
-    const {title,content}=req.body;
-    if(!title || !content){
-        return res.status(400).json({
-            message:"Not enough Data"
-        })
+    const { title, content } = req.body;
+    if (!title || !content) {
+      return res.status(400).json({
+        message: "Not enough Data",
+      });
     }
-    const note = await Note.findOne({title});
-    if(note){
-        return res.status(409).json({
-            message:"Note already exists"
-        })
+    const note = await Note.findOne({ title });
+    if (note) {
+      return res.status(409).json({
+        message: "Note already exists",
+      });
     }
     const newNote = await Note.create({
-        title,
-        content,
-        user:id
-    })
+      title,
+      content,
+      user: id,
+    });
     res.status(201).json({
-        message:"New Note Created",
-        Note:newNote
-    })
+      message: "New Note Created",
+      Note: newNote,
+    });
   } catch (error) {
-    console.error(`Error registering user ${error}`);
+    console.error(`Error in creating notes ${error}`);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
+export const getNotes = async (req, res) => {
+  try {
+    const notes = await Note.find({});
+    res.status(200).json({
+      message: "Notes fetched successfully",
+      notes: notes,
+    });
+  } catch (error) {
+    console.error(`Error getting notes ${error}`);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
+export const getANote = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const note = await Note.findById(id);
+    if (!note) {
+      return res.status(404).json({
+        message: "Note not found",
+      });
+    }
+    res.status(200).json({
+      message: "Note fetched successfully",
+      note: note,
+    });
+  } catch (error) {
+    console.error(`Error in getting a note ${error}`);
     res.status(500).json({
       message: "Internal server error",
     });
