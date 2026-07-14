@@ -47,7 +47,7 @@ export const getNotes = async (req, res) => {
   }
 };
 
-export const getANote = async (req, res) => {
+export const getANotes = async (req, res) => {
   try {
     const id = req.params.id;
     const note = await Note.findById(id);
@@ -67,3 +67,27 @@ export const getANote = async (req, res) => {
     });
   }
 };
+
+export const updateNotes = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const updateData = req.body;
+        const note = await Note.findByIdAndUpdate(id,updateData,{
+            returnDocument:"after"
+        })
+        if(!note){
+            return res.status(404).json({
+                message:"Note not found"
+            })
+        }
+        res.status(200).json({
+            message:"Note updated successfully",
+            updatedNote:note
+        })
+    } catch (error) {
+        console.error(`Error in getting a note ${error}`);
+        res.status(500).json({
+            message: "Internal server error",        
+        });
+    }
+}
