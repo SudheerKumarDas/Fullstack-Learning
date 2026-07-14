@@ -92,3 +92,20 @@ export const userLogin = async (req, res) => {
     });
   }
 };
+
+
+export const getUserInfo = async (req,res) => {
+  try {
+        const { id } = req.params.id;
+        const user = await User.findById(id);
+        res.status(200).json({
+          message:"user fetched successfully",
+          user:user
+        })
+  } catch (error) {
+    console.error(`Error getting user info ${error}`);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+}
