@@ -5,7 +5,7 @@ import { authUser } from "../middlewares/auth.middlewares.js";
 const router = express.Router();
 
 router.post("/",authUser,createNotes);
-router.get("/",getNotes);
+router.get("/",authUser,getNotes);
 router.get("/:id",getANotes);
 router.patch("/:id",authUser,updateNotes);
 router.delete("/:id",authUser,deleteNotes);
