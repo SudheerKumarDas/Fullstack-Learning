@@ -1,5 +1,5 @@
 import express from "express";
-import { createNotes, getNotes, getANotes, updateNotes } from "../controllers/notes.controllers.js";
+import { createNotes, getNotes, getANotes, updateNotes, deleteNotes } from "../controllers/notes.controllers.js";
 import { authUser } from "../middlewares/auth.middlewares.js";
 
 const router = express.Router();
@@ -7,6 +7,7 @@ const router = express.Router();
 router.post("/",authUser,createNotes);
 router.get("/",getNotes);
 router.get("/:id",getANotes);
-router.patch("/:id",updateNotes)
+router.patch("/:id",authUser,updateNotes);
+router.delete("/:id",authUser,deleteNotes);
 
 export default router;

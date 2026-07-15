@@ -70,22 +70,53 @@ export const getANotes = async (req, res) => {
 
 export const updateNotes = async (req,res) => {
     try {
+        const userId = req.user.id;
+        console.log(userId);
         const id = req.params.id;
         const updateData = req.body;
-        const note = await Note.findByIdAndUpdate(id,updateData,{
+        const note = await Note.findById(id);
+        console.log(note.user.toHexString());
+        if(userId!=note.user.toHexString()){
+          return res.status(401).json({
+            message:"Not Authorized"
+          })
+        }
+        const updatedNote = await Note.findByIdAndUpdate(id,updateData,{
             returnDocument:"after"
         })
-        if(!note){
+        if(!updatedNote){
             return res.status(404).json({
                 message:"Note not found"
             })
         }
         res.status(200).json({
             message:"Note updated successfully",
-            updatedNote:note
+            updatedNote:updatedNote
         })
     } catch (error) {
-        console.error(`Error in getting a note ${error}`);
+        console.error(`Error in updating a note ${error}`);
+        res.status(500).json({
+            message: "Internal server error",        
+        });
+    }
+}
+
+export const deleteNotes = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const note = await Note.findByIdAndDelete(id);
+        if(!note){
+            return res.status(404).json({
+                message:"Note not found"
+            })
+        }
+        res.status(200).json({
+            message:"Note deleted successfully",
+            deletedNote:note
+        })
+        
+    } catch (error) {
+        console.error(`Error in deleting a note ${error}`);
         res.status(500).json({
             message: "Internal server error",        
         });
