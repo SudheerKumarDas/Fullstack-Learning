@@ -108,9 +108,7 @@ export const deleteNotes = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User Not Authorized");
   }
-
-  const deletedNote = await Note.findByIdAndDelete(id);
-
+  note.isDeleted = true;
   if (!note) {
     res.status(404);
     throw new Error("Note not found");
@@ -119,6 +117,6 @@ export const deleteNotes = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "Note deleted successfully",
-    data: deletedNote,
+    data: note,
   });
 });
