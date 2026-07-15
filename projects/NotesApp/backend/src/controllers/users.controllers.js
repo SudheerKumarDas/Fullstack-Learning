@@ -109,3 +109,18 @@ export const getUserInfo = async (req,res) => {
     });
   }
 }
+
+export const userLogout = async (req,res) => {
+  try {
+         res.clearCookie("token");
+         res.status(200).json({
+          message:"User logged out successfully"
+         })
+    
+  } catch (error) {
+    console.error(`Error getting user logout : ${error}`);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+}
