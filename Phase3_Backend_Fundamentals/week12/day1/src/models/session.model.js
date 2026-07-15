@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const sessionSchema = new mongoose.model({
     user:{
-        type:mongoose.Schema.Types.ObjectId;
+        type:mongoose.Schema.Types.ObjectId,
         ref:"users",
         required:[true,"user is required"]
     },
