@@ -103,8 +103,15 @@ export const updateNotes = async (req,res) => {
 
 export const deleteNotes = async (req,res) => {
     try {
+        const userId = req.user.id;
         const id = req.params.id;
-        const note = await Note.findByIdAndDelete(id);
+        const note = await Note.findById(id);
+        if(userId!=note.user.toHexString()){
+          return res.status(401).json({
+            message:"User Not Authorized"
+          })
+        }
+        const deletedNote = await Note.findByIdAndDelete(id);
         if(!note){
             return res.status(404).json({
                 message:"Note not found"
@@ -112,7 +119,7 @@ export const deleteNotes = async (req,res) => {
         }
         res.status(200).json({
             message:"Note deleted successfully",
-            deletedNote:note
+            deletedNote:deletedNote
         })
         
     } catch (error) {
