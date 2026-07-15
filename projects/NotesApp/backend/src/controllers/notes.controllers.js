@@ -50,12 +50,18 @@ export const getNotes = async (req, res) => {
 
 export const getANotes = async (req, res) => {
   try {
+    const userId = req.user.id;
     const id = req.params.id;
     const note = await Note.findById(id);
     if (!note) {
       return res.status(404).json({
         message: "Note not found",
       });
+    }
+    if(userId!=note.user.toHexString()){
+      return res.status(403).json({
+        message:"Forbidden"
+      })
     }
     res.status(200).json({
       message: "Note fetched successfully",
