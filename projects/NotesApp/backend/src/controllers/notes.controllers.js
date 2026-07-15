@@ -89,6 +89,8 @@ export const updateNotes = async (req,res) => {
           })
         }
         const updatedNote = await Note.findByIdAndUpdate(id,updateData,{
+          runValidators:true
+        },{
             returnDocument:"after"
         })
         if(!updatedNote){
