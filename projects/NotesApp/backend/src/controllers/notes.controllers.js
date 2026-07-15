@@ -109,6 +109,7 @@ export const deleteNotes = asyncHandler(async (req, res) => {
     throw new Error("User Not Authorized");
   }
   note.isDeleted = true;
+  await note.save();
   if (!note) {
     res.status(404);
     throw new Error("Note not found");
