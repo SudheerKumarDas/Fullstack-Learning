@@ -297,10 +297,33 @@ export const sortingNotes = asyncHandler(async(req,res)=>{
     user:userId,
     isDeleted:false
   })
+  .sort(sort)
 
   res.status(200).json({
     success:true,
     message:"Notes sorting successful",
-    notes:notes
+    data:notes
+  })
+})
+
+export const filterNotes = asyncHandler(async(req,res)=>{
+  const userId = req.user.id;
+  const filter = {
+    user:userId
+  }
+  if(req.query.archived === "true"){
+    filter.isArchived=true
+  }
+
+  if(req.query.deleted === "true"){
+    filter.isDeleted = true
+  }
+
+  const notes = await Note.find(filter)
+
+  res.status(200).json({
+    success:true,
+    message:"Notes filtered successfully",
+    data:notes
   })
 })
