@@ -32,10 +32,88 @@ export const createNotes = asyncHandler(async (req, res) => {
 
 export const getNotes = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const notes = await Note.find({ user: userId });
+
+  const filter = {
+    user: userId,
+    isDeleted: false,
+  };
+
+  // archived notes
+  if (req.query.archived === "true") {
+    filter.isArchived = true;
+  }
+
+  //deleted notes which is not deleted from database
+  if (req.query.deleted === "true") {
+    filter.isDeleted = true;
+  }
+
+  //pinned notes
+  if (req.query.pinned === "true") {
+    filter.isPinned = true;
+  }
+
+  //searching
+  if (req.query.search) {
+    filter.$or = [
+      {
+        title: {
+          $regex: req.query.search,
+          $options: "i",
+        },
+      },
+      {
+        content: {
+          $regex: req.query.search,
+          $options: "i",
+        },
+      },
+    ];
+  }
+
+  //sorting notes
+  let sort = { createdAt: -1 };
+
+  switch (req.query.sort) {
+    case "oldest":
+      sort = { createdAt: 1 };
+      break;
+
+    case "title":
+      sort = { title: 1 };
+      break;
+
+    case "newest":
+    default:
+      sort = { createdAt: -1 };
+  }
+
+  //pagination
+  
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  // Total notes (for pagination info)
+  const totalNotes = await Note.countDocuments(filter);
+
+  // Fetch notes
+  const notes = await Note.find(filter)
+  .sort(sort)
+  .skip(skip)
+  .limit(limit);
+
   res.status(200).json({
     success: true,
     message: "Notes fetched successfully",
+
+    pagination: {
+      totalNotes,
+      currentPage: page,
+      totalPages: Math.ceil(totalNotes / limit),
+      limit,
+    },
+
     data: notes,
   });
 });
@@ -221,109 +299,109 @@ export const archivedNotes = asyncHandler(async (req, res) => {
   });
 });
 
-export const searchNotes = asyncHandler(async (req, res) => {
-  const keyword = req.query.q || "";
-  const userId = req.user.id;
 
-  const notes = await Note.find({
-    user: userId,
-    isDeleted: false,
-    $or: [
-      {
-        title: {
-          $regex: keyword,
-          $options: "i",
-        },
-      },
-      {
-        content: {
-          $regex: keyword,
-          $options: "i",
-        },
-      },
-    ],
-  });
-  res.status(200).json({
-    success: true,
-    message: "Note search completed",
-    data: notes,
-  });
-});
 
-export const notesPagination = asyncHandler(async(req,res)=>{
-  const userId = req.user.id;
+// export const searchNotes = asyncHandler(async (req, res) => {
+//   const keyword = req.query.q || "";
+//   const userId = req.user.id;
 
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
+//   const notes = await Note.find({
+//     user: userId,
+//     isDeleted: false,
+//     $or: [
+//       {
+//         title: {
+//           $regex: keyword,
+//           $options: "i",
+//         },
+//       },
+//       {
+//         content: {
+//           $regex: keyword,
+//           $options: "i",
+//         },
+//       },
+//     ],
+//   });
+//   res.status(200).json({
+//     success: true,
+//     message: "Note search completed",
+//     data: notes,
+//   });
+// });
 
-  const skip = (page-1)*limit;
+// export const notesPagination = asyncHandler(async (req, res) => {
+//   const userId = req.user.id;
 
-  const notes = await Note.find({
-    isDeleted:false,
-    user:userId
-  })
-  .skip(skip)
-  .limit(limit)
+//   const page = Number(req.query.page) || 1;
+//   const limit = Number(req.query.limit) || 10;
 
-  res.status(200).json({
-    success:true,
-    message:"Notes pagination works",
-    page,
-    limit,
-    data:notes
-  })
-})
+//   const skip = (page - 1) * limit;
 
-export const sortingNotes = asyncHandler(async(req,res)=>{
-  const userId = req.user.id;
+//   const notes = await Note.find({
+//     isDeleted: false,
+//     user: userId,
+//   })
+//     .skip(skip)
+//     .limit(limit);
 
-  let sort = {};
+//   res.status(200).json({
+//     success: true,
+//     message: "Notes pagination works",
+//     page,
+//     limit,
+//     data: notes,
+//   });
+// });
 
-  switch(req.query.sort){
+// export const sortingNotes = asyncHandler(async (req, res) => {
+//   const userId = req.user.id;
 
-    case "oldest":
-      sort = { createdAt : 1}
-      break;
+//   let sort = {};
 
-    case "title":
-      sort = { title : 1}
-      break;
+//   switch (req.query.sort) {
+//     case "oldest":
+//       sort = { createdAt: 1 };
+//       break;
 
-    default:
-      sort={createdAt:-1}
-  }
+//     case "title":
+//       sort = { title: 1 };
+//       break;
 
-  const notes = await Note.find({
-    user:userId,
-    isDeleted:false
-  })
-  .sort(sort)
+//     default:
+//       sort = { createdAt: -1 };
+//   }
 
-  res.status(200).json({
-    success:true,
-    message:"Notes sorting successful",
-    data:notes
-  })
-})
+//   const notes = await Note.find({
+//     user: userId,
+//     isDeleted: false,
+//   }).sort(sort);
 
-export const filterNotes = asyncHandler(async(req,res)=>{
-  const userId = req.user.id;
-  const filter = {
-    user:userId
-  }
-  if(req.query.archived === "true"){
-    filter.isArchived=true
-  }
+//   res.status(200).json({
+//     success: true,
+//     message: "Notes sorting successful",
+//     data: notes,
+//   });
+// });
 
-  if(req.query.deleted === "true"){
-    filter.isDeleted = true
-  }
+// export const filterNotes = asyncHandler(async (req, res) => {
+//   const userId = req.user.id;
+//   const filter = {
+//     user: userId,
+//   };
+//   if (req.query.archived === "true") {
+//     filter.isArchived = true;
+//   }
 
-  const notes = await Note.find(filter)
+//   if (req.query.deleted === "true") {
+//     filter.isDeleted = true;
+//   }
 
-  res.status(200).json({
-    success:true,
-    message:"Notes filtered successfully",
-    data:notes
-  })
-})
+//   const notes = await Note.find(filter);
+
+//   res.status(200).json({
+//     success: true,
+//     message: "Notes filtered successfully",
+//     data: notes,
+//   });
+// });
