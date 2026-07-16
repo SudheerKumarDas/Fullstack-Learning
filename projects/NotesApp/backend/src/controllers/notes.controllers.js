@@ -1,3 +1,4 @@
+import { Error } from "mongoose";
 import Note from "../models/notes.models.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
@@ -119,5 +120,132 @@ export const deleteNotes = asyncHandler(async (req, res) => {
     success: true,
     message: "Note deleted successfully",
     data: note,
+  });
+});
+
+export const restoreNotes = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const userId = req.user.id;
+  const note = await Note.findById(id);
+  if (!note) {
+    res.status(404);
+    throw new Error("Note not found");
+  }
+  if (note.user.toString() != userId) {
+    res.status(403);
+    throw new Error("Forbidden");
+  }
+  note.isDeleted = false;
+  await note.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Note restored successfully",
+    data: note,
+  });
+});
+
+export const permanentDeleteNotes = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const userId = req.user.id;
+
+  const note = await Note.findById(id);
+  if (!note) {
+    res.status(404);
+    throw new Error("Note not found");
+  }
+  if (note.user.id != userId) {
+    res.status(403);
+    throw new Error("Not Authorized");
+  }
+  note.deleteOne();
+
+  res.status(200).json({
+    success: true,
+    message: "Note deleted successfully",
+    data: note,
+  });
+});
+
+export const pinnedNotes = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const userId = req.user.id;
+
+  const note = await Note.findById(id);
+
+  if (!note) {
+    res.status(404);
+    throw new Error("Note not found");
+  }
+
+  if (note.user.toString != userId) {
+    res.status(403);
+    throw new Error("Not Authorized");
+  }
+
+  note.isPinned = !note.isPinned;
+
+  await note.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Note pinned successfully",
+    data: note,
+  });
+});
+
+export const archivedNotes = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const userId = req.user.id;
+
+  const note = await Note.findById(id);
+
+  if (!note) {
+    res.status(404);
+    throw new Error("Note not found");
+  }
+
+  if (note.user.toString != userId) {
+    res.status(403);
+    throw new Error("Not Authorized");
+  }
+
+  note.isArchived = !note.isArchived;
+
+  await note.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Note Archieved successfully",
+    data: note,
+  });
+});
+
+export const searchNotes = asyncHandler(async (req, res) => {
+  const keyword = req.query.q || "";
+  const userId = req.user.id;
+
+  const notes = await Note.find({
+    user: userId,
+    isDeleted: false,
+    $or: [
+      {
+        title: {
+          $regex: keyword,
+          $options: "i",
+        },
+      },
+      {
+        content: {
+          $regex: keyword,
+          $options: "i",
+        },
+      },
+    ],
+  });
+  res.status(200).json({
+    success: true,
+    message: "Note search completed",
+    data: notes,
   });
 });
