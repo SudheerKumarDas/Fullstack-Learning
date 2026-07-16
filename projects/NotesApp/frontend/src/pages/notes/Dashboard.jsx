@@ -1,8 +1,16 @@
+import { useAuth } from "../../context/useAuth.js"
 
-const Dashboard = () => {
-  return (
-    <div>Dashboard</div>
-  )
+export default function Dashboard() {
+
+    const { user } = useAuth();
+
+    console.log(user);
+
+    return (
+      <div>
+        <h1>Dashboard</h1>
+        <p>{user.username}</p>
+        <p>{user.email}</p>
+      </div>
+    )
 }
-
-export default Dashboard
