@@ -249,3 +249,27 @@ export const searchNotes = asyncHandler(async (req, res) => {
     data: notes,
   });
 });
+
+export const notesPagination = asyncHandler(async(req,res)=>{
+  const userId = req.user.id;
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+
+  const skip = (page-1)*limit;
+
+  const notes = await Note.find({
+    isDeleted:false,
+    user:userId
+  })
+  .skip(skip)
+  .limit(limit)
+
+  res.status(200).json({
+    success:true,
+    message:"Notes pagination works",
+    page,
+    limit,
+    data:notes
+  })
+})
