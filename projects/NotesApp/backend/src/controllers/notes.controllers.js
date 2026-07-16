@@ -273,3 +273,34 @@ export const notesPagination = asyncHandler(async(req,res)=>{
     data:notes
   })
 })
+
+export const sortingNotes = asyncHandler(async(req,res)=>{
+  const userId = req.user.id;
+
+  let sort = {};
+
+  switch(req.query.sort){
+
+    case "oldest":
+      sort = { createdAt : 1}
+      break;
+
+    case "title":
+      sort = { title : 1}
+      break;
+
+    default:
+      sort={createdAt:-1}
+  }
+
+  const notes = await Note.find({
+    user:userId,
+    isDeleted:false
+  })
+
+  res.status(200).json({
+    success:true,
+    message:"Notes sorting successful",
+    notes:notes
+  })
+})
