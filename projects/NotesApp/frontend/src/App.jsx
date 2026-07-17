@@ -6,7 +6,6 @@ function App() {
 
   return (
     <>
-      <h1>NOTES APP</h1>
       <AppRoutes/>
     </>
   )
