@@ -1,21 +1,12 @@
+import { FaPlus } from "react-icons/fa";
 
-const CreateButton = () => {
+export default function CreateButton({ onClick }) {
   return (
     <button
-      style={{
-        position: "fixed",
-        right: "30px",
-        bottom: "30px",
-        width: "60px",
-        height: "60px",
-        borderRadius: "50%",
-        fontSize: "28px",
-        cursor:"pointer",
-      }}
+      onClick={onClick}
+      className="fixed bottom-8 right-8 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-2xl text-white shadow-lg transition hover:bg-blue-700"
     >
-      +
+      <FaPlus />
     </button>
-  )
+  );
 }
-
-export default CreateButton
