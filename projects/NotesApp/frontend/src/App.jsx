@@ -9,14 +9,14 @@ function App() {
 
   return (
     <div className='w-full h-screen flex flex-col '>
-      <div className='w-full border-b-4 border-gray-400 p-4'>
+      <header className='w-full border-b-4 border-gray-400 p-4'>
           <Navbar/>
-      </div>
+      </header>
       <main className='flex flex-1'>
-        <div className='w-64 border-r-4 border-gray-400 p-4'>
+        <aside className='w-64 border-r-4 border-gray-400 p-4'>
             <Sidebar/>
-        </div>
-        <div className='flex-1'>
+        </aside>
+        <section className='flex-1'>
           <div className='w-full border-b-4 border-gray-400 p-4'>
               <SearchBar/>
           </div>   
@@ -26,7 +26,7 @@ function App() {
           <div className='fixed bottom-4 right-4'>
             <FloatingButton/>
           </div>               
-        </div>
+        </section>
       </main>
     </div>
   )
