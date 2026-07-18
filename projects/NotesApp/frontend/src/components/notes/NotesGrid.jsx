@@ -1,16 +1,20 @@
 import EmptyState from "./EmptyState.jsx";
+import NoteCard from "./NoteCard.jsx";
 
-const NotesGrid = () => {
-  const notes = [];
+export default function NotesGrid({ notes, loading }) {
+  if (loading) {
+    return <h2 className="text-xl">Loading...</h2>;
+  }
 
   if (notes.length === 0) {
     return <EmptyState />;
   }
+
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-      {/* Note cards will go here */}
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+      {notes.map((note) => (
+        <NoteCard key={note._id} note={note} />
+      ))}
     </div>
   );
-};
-
-export default NotesGrid;
+}
