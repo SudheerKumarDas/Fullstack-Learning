@@ -1,20 +1,23 @@
 import { useAuth } from "../../context/useAuth.js";
 
 const Navbar = () => {
-    const {user} = useAuth();
+  const { user, logout } = useAuth();
   return (
-    <div style={{
-        height: "60px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "0 30px",
-        borderBottom: "1px solid #ddd",
-    }}>
-        <h2>NotesApp</h2>
-        {user?.username}
-    </div>
-  )
-}
+    <header className="flex items-center justify-between border-b bg-white px-8 py-4 shadow-sm">
+      <h1 className="text-2xl font-bold text-blue-600">Notes App</h1>
 
-export default Navbar
+      <div className="flex items-center gap-5">
+        <span className="font-medium">{user?.username}</span>
+
+        <button
+          onClick={logout}
+          className="rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
+  );
+};
+
+export default Navbar;

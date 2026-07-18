@@ -1,20 +1,30 @@
+import { FaStickyNote, FaThumbtack, FaArchive, FaTrash } from "react-icons/fa";
+
 const Sidebar = () => {
   return (
-    <div
-      style={{
-        width: "220px",
-        borderRight: "1px solid #ddd",
-        padding: "20px",
-      }}
-    >
-      <p>All Notes</p>
+    <aside className="min-h-[calc(100vh-73px)] w-64 border-r bg-white p-5">
+      <nav className="space-y-4">
+        <button className="flex w-full items-center gap-3 rounded-lg p-3 transition hover:bg-gray-100">
+          <FaStickyNote />
+          <span>All Notes</span>
+        </button>
 
-      <p>Archived</p>
+        <button className="flex w-full items-center gap-3 rounded-lg p-3 transition hover:bg-gray-100">
+          <FaThumbtack />
+          <span>Pinned</span>
+        </button>
 
-      <p>Pinned</p>
+        <button className="flex w-full items-center gap-3 rounded-lg p-3 transition hover:bg-gray-100">
+          <FaArchive />
+          <span>Archived</span>
+        </button>
 
-      <p>Trash</p>
-    </div>
+        <button className="flex w-full items-center gap-3 rounded-lg p-3 transition hover:bg-gray-100">
+          <FaTrash />
+          <span>Trash</span>
+        </button>
+      </nav>
+    </aside>
   );
 };
 

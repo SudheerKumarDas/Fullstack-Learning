@@ -1,9 +1,1 @@
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100vh;
-  margin: 0;
-  background-color: rgb(54, 48, 48);
-  color: white;
-}
+@import "tailwindcss";
