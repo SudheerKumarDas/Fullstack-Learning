@@ -4,8 +4,11 @@ import Sidebar from './components/Sidebar.jsx';
 import NotesList from './components/NotesList.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import FloatingButton from './components/FloatingButton.jsx';
+import initialNotes from './data/data.js';
+import { useState } from 'react';
 
 function App() {
+  const [notes,setNotes] = useState(initialNotes);
 
   return (
     <div className='w-full h-screen flex flex-col '>
@@ -21,7 +24,7 @@ function App() {
               <SearchBar/>
           </div>   
           <div className='p-4'>
-              <NotesList/>
+              <NotesList notes={notes} setNotes={setNotes}/>
           </div>
           <div className='fixed bottom-4 right-4'>
             <FloatingButton/>

@@ -1,6 +1,6 @@
-export default function NoteCard(note){
+export default function NoteCard({note}){
     return (
-        <div className="border rounded-xl p-4 shadow hover:shadow-lg">
+        <div className="border rounded-xl p-4 shadow hover:shadow-lg transition">
             <h2>{note.title}</h2>
             <p>{note.content}</p>
             <p>{note.createdAt}</p>
