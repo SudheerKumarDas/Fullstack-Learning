@@ -7,11 +7,16 @@ import FloatingButton from './components/FloatingButton.jsx';
 import initialNotes from './data/data.js';
 import { useState } from 'react';
 
+import AddNoteModal from './components/AddNoteModal.jsx';
+
 function App() {
   const [notes,setNotes] = useState(initialNotes);
 
   return (
     <div className='w-full h-screen flex flex-col '>
+
+      <AddNoteModal/>
+
       <header className='w-full border-b-4 border-gray-400 p-4'>
           <Navbar/>
       </header>
