@@ -27,13 +27,17 @@ const movieSchema = new mongoose.Schema({
         required:true
     },
     duration:{
-        type:Number
+        type:Number,
+        required:false
     },
     rating:{
-        type:Number
+        type:Number,
+        required:false,
+        default:0
     },
     posterUrl:{
-        type:String
+        type:String,
+        required:false
     }
 },{
     timestamps:true
