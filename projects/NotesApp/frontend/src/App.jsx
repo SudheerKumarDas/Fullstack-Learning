@@ -11,12 +11,24 @@ import AddNoteModal from './components/AddNoteModal.jsx';
 
 function App() {
   const [notes,setNotes] = useState(initialNotes);
+  const [isModalOpen,setIsModalOpen] = useState(false);
+
+  const modalOpen = () => setIsModalOpen(true);
+  const modalClose = () => setIsModalOpen(false);
+  const handleClick = () => {
+    modalOpen();
+  }
+  const onClose = () => {
+    modalClose();
+  }
+  const handleAddNote = (newNote) => {
+      console.log(newNote);
+      setNotes(prevNotes => [...prevNotes, newNote]);
+      modalClose();
+  }
 
   return (
     <div className='w-full h-screen flex flex-col '>
-
-      <AddNoteModal/>
-
       <header className='w-full border-b-4 border-gray-400 p-4'>
           <Navbar/>
       </header>
@@ -32,8 +44,9 @@ function App() {
               <NotesList notes={notes} setNotes={setNotes}/>
           </div>
           <div className='fixed bottom-4 right-4'>
-            <FloatingButton/>
-          </div>               
+            <FloatingButton onClick={handleClick}/>
+          </div>
+          {isModalOpen && <AddNoteModal onClose={onClose} onAddNote={handleAddNote}/>}               
         </section>
       </main>
     </div>
