@@ -15,16 +15,17 @@ function App() {
 
   const modalOpen = () => setIsModalOpen(true);
   const modalClose = () => setIsModalOpen(false);
-  const handleClick = () => {
-    modalOpen();
-  }
-  const onClose = () => {
-    modalClose();
-  }
+
   const handleAddNote = (newNote) => {
       console.log(newNote);
       setNotes(prevNotes => [...prevNotes, newNote]);
       modalClose();
+  }
+
+  const handleDelete=(id)=>{
+    console.log(id);
+    setNotes(prevNotes => prevNotes.filter((note)=>note.id!==id));
+    console.log(notes);
   }
 
   return (
@@ -41,12 +42,12 @@ function App() {
               <SearchBar/>
           </div>   
           <div className='p-4'>
-              <NotesList notes={notes} setNotes={setNotes}/>
+              <NotesList notes={notes} onDelete={handleDelete}/>
           </div>
           <div className='fixed bottom-4 right-4'>
-            <FloatingButton onClick={handleClick}/>
+            <FloatingButton onClick={modalOpen}/>
           </div>
-          {isModalOpen && <AddNoteModal onClose={onClose} onAddNote={handleAddNote}/>}               
+          {isModalOpen && <AddNoteModal onClose={modalClose} onAddNote={handleAddNote}/>}               
         </section>
       </main>
     </div>

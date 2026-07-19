@@ -6,6 +6,9 @@ export default function AddNoteModal({onClose,onAddNote}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!title.trim() || !content.trim()){
+        alert("Provide all the fields");
+    }
     const newNote = {
         id:Date.now(),
         title:title,
