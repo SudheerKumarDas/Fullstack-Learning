@@ -1,9 +1,10 @@
-import express from express;
+import express from "express";
 
-import { createMovies } from "../controllers/movies.controllers.js";
+import { createMovies, getAllMovies } from "../controllers/movies.controllers.js";
 
 const router = express.Router();
 
 router.post("/",createMovies);
+router.get("/",getAllMovies);
 
 export default router;

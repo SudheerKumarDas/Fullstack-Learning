@@ -41,3 +41,23 @@ export const createMovies = async (req,res) => {
         })
     }
 }
+
+export const getAllMovies = async (req,res) => {
+    try {
+        const movies = await Movie.find({});
+        if(!movies){
+            return res.status(404).json({
+                message:"No movies available"
+            })
+        }
+        res.status(200).json({
+            message:"Fetched all the movies",
+            movies:movies
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message:"Internal server error"
+        })
+    }
+}
