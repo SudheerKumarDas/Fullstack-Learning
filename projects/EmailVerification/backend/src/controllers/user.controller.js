@@ -30,7 +30,7 @@ export const userRegister = async (req,res) => {
             verificationTokenExpires:Date.now() + 60*60*1000
         })
 
-        await sendVerificationEmail();
+        await sendVerificationEmail(newUser.email,rawVerificationToken);
 
         res.status(201).json({
             message:"User created successfully, Now check your email for verification"
