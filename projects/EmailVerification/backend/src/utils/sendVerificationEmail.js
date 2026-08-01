@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
+  host: "smtp.gmail.com",
   port: process.env.EMAIL_PORT,
   secure: false,
   auth: {
@@ -11,8 +11,9 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendVerificationEmail = async (toEmail, token) => {
-  const verifyUrl = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
-
+  const verifyUrl = `${process.env.CLIENT_URL}/api/v1/users/verify-email?token=${token}`;
+  console.log('EMAIL_USER:', process.env.EMAIL_USER);
+  console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? '✅ loaded' : '❌ missing');
   await transporter.sendMail({
     from: `"MyApp" <${process.env.EMAIL_USER}>`,
     to: toEmail,

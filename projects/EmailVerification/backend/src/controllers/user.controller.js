@@ -42,3 +42,39 @@ export const userRegister = async (req,res) => {
         })
     }
 }
+
+export const verifyEmail = async (req,res) => {
+    try {
+        const { token } = req.query;
+        if(!token){
+            return res.status(400).json({
+                message:"Token not found"
+            })
+        }
+        const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+        const user = await User.findOne({
+            verificationToken:hashedToken,
+            verificationTokenExpires:{$gt:Date.now()},
+        })
+        if(!user){
+            return res.status(400).json({
+                message:"Invalid or expired verification token"
+            })
+        }
+        user.isVerified = true;
+        user.verificationToken = undefined;
+        user.verificationTokenExpires = undefined;
+
+        await user.save();
+
+        res.status(200).json({
+            message:"Email verified successfully"
+        })
+    } catch (error) {
+        console.error(`Error verifying email ${error}`);
+        res.status(500).json({
+            message:"Internal Server Error"
+        })
+    }
+}
