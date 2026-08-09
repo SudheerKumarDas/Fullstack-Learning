@@ -24,6 +24,15 @@ app.get("/redis-test",async(req,res)=>{
     })
 })
 
+app.get("/test-expiration",async(req,res)=>{
+    await redisClient.set("temporary","Hello Redis",{
+        EX:30
+    });
+    res.json({
+        message:"Key will expire in 30 seconds"
+    })
+})
+
 app.listen(PORT,()=>{
     console.log(`App is listening on port http://localhost:${PORT}`);
 })
