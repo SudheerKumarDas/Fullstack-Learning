@@ -1,13 +1,13 @@
 {
-  "name": "redis-docker",
+  "name": "redis-caching",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
