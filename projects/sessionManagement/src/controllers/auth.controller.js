@@ -91,3 +91,23 @@ export const userInfo = async (req,res) => {
         })
     }
 }
+
+export const userLogout = async (req,res) => {
+    try {
+        const sessionId = req.cookies.sessionId;
+        if(sessionId){
+            await Session.deleteOne({
+                sessionId
+            })
+        }
+        res.clearCookie("sessionId");
+        res.status(200).json({
+            message:"Logout successfully"
+        })
+    } catch (error) {
+        console.error(`Error in getting user ${error}`);
+        res.status(500).json({
+            message:"Internal Server Error"
+        })
+    }
+}
