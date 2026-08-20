@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import Session from "../models/Session.js";
 
 import crypto from "crypto";
+import bcrypt from "bcrypt"
 
 export const userRegister = async (req,res) => {
     try {
@@ -17,10 +18,12 @@ export const userRegister = async (req,res) => {
                 message:"User already registered"
             })
         }
+        const hashedPassword = await bcrypt.hash(password,10);
+
         const newUser = await User.create({
             name,
             email,
-            password
+            password:hashedPassword
         })
         res.status(201).json({
             message:"User registered successfully"
@@ -43,8 +46,14 @@ export const userLogin = async (req,res) => {
         }
         const user = await User.findOne({email});
         if(!user){
-            return res.status(404).json({
-                message:"User not found"
+            return res.status(403).json({
+                message:"provide correct credentials"
+            })
+        }
+        const isPasswordMatch = await bcrypt.compare(password,user.password);
+        if(!isPasswordMatch){
+            return res.status(403).json({
+                message:"provide correct credentials"
             })
         }
         const sessionId = crypto.randomBytes(32).toString('hex');
@@ -57,7 +66,7 @@ export const userLogin = async (req,res) => {
         res.cookie("sessionId",sessionId,{
             httpOnly:true,
             secure:false,
-            samesite:"lax",
+            sameSite:"lax",
             expires:expiresAt
         })
         res.status(200).json({
