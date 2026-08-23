@@ -31,3 +31,38 @@ export const userRegister = async (req,res) => {
         })
     }
 }
+
+export const userLogin = async (req,res) => {
+    try {
+        const {email,password}=req.body;
+        if(!email || !password){
+            return res.status(401).json({
+                message:"Please provide all fields"
+            })
+        }
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(404).json({
+                message:"Provide valid credentials"
+            })
+        }
+        const isPasswordMatch = await bcrypt.compare(password,user.password);
+        if(!isPasswordMatch){
+            return res.status(404).json({
+                message:"Provide valid credentials"
+            })
+        }
+        console.log(`Before user session`);
+        req.session.user={id:user._id,email:user.email};
+        console.log(`After user session`);
+        res.status(200).json({
+            message:"User logged in successfully",
+            user:user
+        })
+    } catch (error) {
+        console.error(`Error in user login`);
+        res.status(500).json({
+            message:"Internal Server Error"
+        })
+    }
+}
