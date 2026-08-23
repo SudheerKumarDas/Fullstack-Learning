@@ -66,3 +66,17 @@ export const userLogin = async (req,res) => {
         })
     }
 }
+
+export const userInfo = async (req,res) => {
+    try {
+        res.status(200).json({
+            message:"User Info fetched successfully",
+            user:req.session.user
+        })
+    } catch (error) {
+         console.error(`Error in getting user info`);
+        res.status(500).json({
+            message:"Internal Server Error"
+        })
+    }
+}
