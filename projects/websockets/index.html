@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Practice</title>
+</head>
+
+<body>
+    <h1>WebSocket Practice</h1>
+
+    <button id="connect">Connect</button>
+    <button id="disconnect">Disconnect</button>
+
+    <br><br>
+
+    <input
+        id="messageInput"
+        type="text"
+        placeholder="Enter message"
+    />
+
+    <button id="send">Send</button>
+
+    <h2>Messages</h2>
+
+    <div id="messages"></div>
+
+    <script>
+        let socket = null;
+
+        const connectButton = document.getElementById("connect");
+        const disconnectButton = document.getElementById("disconnect");
+        const sendButton = document.getElementById("send");
+        const messageInput = document.getElementById("messageInput");
+        const messages = document.getElementById("messages");
+
+        function addMessage(message) {
+            const div = document.createElement("div");
+            div.textContent = message;
+
+            messages.appendChild(div);
+        }
+
+        connectButton.addEventListener("click", () => {
+            socket = new WebSocket("ws://localhost:8080");
+
+            socket.onopen = () => {
+                addMessage("Connected to server");
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+
+                console.log("Server:", data);
+
+                addMessage(
+                    `Server: ${data.message}`
+                );
+            };
+
+            socket.onclose = () => {
+                addMessage("Disconnected from server");
+            };
+
+            socket.onerror = (error) => {
+                console.error("WebSocket error:", error);
+            };
+        });
+
+        sendButton.addEventListener("click", () => {
+            if (!socket || socket.readyState !== WebSocket.OPEN) {
+                addMessage("Not connected!");
+                return;
+            }
+
+            const message = messageInput.value;
+
+            socket.send(message);
+
+            messageInput.value = "";
+        });
+
+        disconnectButton.addEventListener("click", () => {
+            if (socket) {
+                socket.close();
+            }
+        });
+    </script>
+</body>
+</html>
