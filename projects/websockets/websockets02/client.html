@@ -35,7 +35,7 @@
             const input = document.getElementById("msgInput");
             if(input.value.trim()!==" "){
                 socket.send(input.value);
-                logMessage("You: " + input.value);
+                // logMessage("You: " + input.value);
                 input.value=" ";
             }
         }
