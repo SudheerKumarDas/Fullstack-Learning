@@ -33,6 +33,11 @@ function App() {
       setMessages(m=>[...m,event.data])
     }
     socketRef.current=socket;
+
+    return () => {
+      socket.close();
+    } 
+    
   },[])
   return (
     <div className="bg-gray-700 h-screen">
