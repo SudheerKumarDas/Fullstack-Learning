@@ -49,3 +49,43 @@ function move(direction: Direction){
         }
     }
 }
+
+let newValue:any;
+newValue = "chai";
+newValue = [1,2,3];
+newValue = 2.5;
+newValue.toUpperCase();
+
+let anotherValue: unknown
+anotherValue = "chai";
+anotherValue = [1,2,3];
+anotherValue = 2.5;
+if (typeof anotherValue === "string"){
+    anotherValue.toUpperCase();
+}
+
+
+try {
+    console.log("try block");
+} catch (error: unknown) {
+    if (error instanceof Error){
+         console.log(error.message);
+    }
+   console.log('Error',error);
+}
+
+const data: unknown = "sudheer das";
+const strData: string = data as string;
+
+type Role = "admin" | "user";
+function redirectBasedOnRole(role:Role): void {
+    if(role === "admin"){
+        console.log("Redirecting to admin dashboard");
+        return;   
+    }
+    if(role === "user"){
+        console.log("Redirecting to user dashboard");
+        return;
+    }
+    role;
+}
